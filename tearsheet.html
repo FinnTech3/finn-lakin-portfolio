@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finn Lakin — Tearsheet</title>
+  <meta name="description" content="One-page summary: GPA, Bloomberg Trading Challenge return, languages, current projects, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #FFF1E5;
+      --ink:    #0E1A2B;
+      --ink-2:  #3D4759;
+      --ink-3:  #6B7185;
+      --accent: #990F3D;
+      --rule:   rgba(14,26,43,0.20);
+    }
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #d8d2c8; }
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 24px auto;
+      padding: 22mm 20mm 18mm;
+      background: var(--bg);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+      position: relative;
+    }
+    @media print {
+      body { background: #fff; }
+      .sheet { box-shadow: none; margin: 0; }
+      .home-link { display: none; }
+    }
+
+    .home-link {
+      position: fixed;
+      top: 16px; left: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      text-decoration: none;
+      padding: 7px 12px;
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+    }
+    .home-link:hover { color: var(--ink); border-color: var(--ink-2); }
+
+    .head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 14mm;
+      border-bottom: 1px solid var(--rule);
+    }
+    .head__left {
+      display: flex; flex-direction: column;
+      gap: 8mm;
+    }
+    .head__eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+    .head__rule {
+      width: 28px; height: 1px;
+      background: var(--accent);
+    }
+    .head__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64pt;
+      font-weight: 600;
+      line-height: 0.92;
+      letter-spacing: -0.022em;
+      margin: 0;
+    }
+    .head__name em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .head__sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10pt;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink);
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .head__sub .dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .head__right {
+      text-align: right;
+      display: flex; flex-direction: column;
+      gap: 5mm;
+    }
+    .head__date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .head__title-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14pt;
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    /* HEADLINE NUMBERS — the row */
+    .nums {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 0;
+      padding: 9mm 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .num {
+      padding: 0 5mm;
+      border-left: 1px solid var(--rule);
+    }
+    .num:first-child { border-left: none; padding-left: 0; }
+    .num__val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38pt;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      display: flex; align-items: baseline; gap: 2px;
+    }
+    .num__val em {
+      font-style: italic;
+      font-size: 0.5em;
+      font-weight: 400;
+      opacity: 0.75;
+    }
+    .num__lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5pt;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      margin-top: 4mm;
+      line-height: 1.4;
+    }
+    .num__meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-top: 2mm;
+    }
+
+    /* BODY GRID */
+    .body {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 12mm;
+      padding: 9mm 0 0;
+    }
+
+    .col h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 4mm;
+      padding-bottom: 3mm;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .col p {
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0 0 3mm;
+    }
+    .col p:last-child { margin-bottom: 0; }
+    .col strong { font-weight: 600; }
+    .col em { font-style: italic; color: var(--accent); }
+
+    .block + .block { margin-top: 7mm; }
+
+    /* Project rows */
+    .proj {
+      display: grid;
+      grid-template-columns: 14mm 1fr;
+      gap: 4mm;
+      padding: 3mm 0;
+      border-bottom: 1px dashed var(--rule);
+    }
+    .proj:last-child { border-bottom: none; }
+    .proj__id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9pt;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.10em;
+      padding-top: 1mm;
+    }
+    .proj__title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14pt;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      line-height: 1.15;
+      margin: 0 0 1mm;
+    }
+    .proj__title em { font-style: italic; color: var(--accent); font-weight: 500; }
+    .proj__desc {
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: var(--ink-2);
+      margin: 0 0 1.5mm;
+    }
+    .proj__tags {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+
+    /* Compact lists */
+    .stack { display: flex; flex-direction: column; gap: 2.5mm; }
+    .row {
+      display: grid;
+      grid-template-columns: 28mm 1fr;
+      gap: 3mm;
+      font-size: 10pt;
+      align-items: baseline;
+    }
+    .row dt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8.5pt;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .row dd {
+      margin: 0;
+      color: var(--ink);
+    }
+    .row dd em { font-style: italic; color: var(--accent); }
+
+    /* Lang bars */
+    .lang {
+      display: grid;
+      grid-template-columns: 28mm 30mm 1fr;
+      gap: 3mm;
+      align-items: center;
+      padding: 1.6mm 0;
+    }
+    .lang__name {
+      font-size: 10pt;
+      font-weight: 600;
+    }
+    .lang__bar {
+      height: 3px;
+      background: rgba(14,26,43,0.10);
+      border-radius: 1px;
+      position: relative;
+    }
+    .lang__bar span {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+    .lang__lvl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+
+    /* FOOTER */
+    .foot {
+      position: absolute;
+      left: 20mm;
+      right: 20mm;
+      bottom: 12mm;
+      padding-top: 5mm;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10mm;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .foot__mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 13pt;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-transform: none;
+    }
+
+    /* QR placeholder block — square, dotted, so user can drop a real QR in */
+    .qr {
+      width: 22mm; height: 22mm;
+      background:
+        repeating-linear-gradient(45deg, rgba(14,26,43,0.10) 0 1.5px, transparent 1.5px 3px);
+      border: 1px solid var(--rule);
+      position: relative;
+    }
+    .qr::after {
+      content: 'QR — finnlakin.com';
+      position: absolute;
+      bottom: -5mm; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7pt;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="home-link">← Back to site</a>
+
+  <section class="sheet">
+
+    <header class="head">
+      <div class="head__left">
+        <div class="head__eyebrow">
+          <span class="head__rule"></span>
+          Candidate Tearsheet · Summer 2026
+        </div>
+        <h1 class="head__name">Finn<br><em>Lakin.</em></h1>
+        <div class="head__sub">
+          <span>Equity Research</span>
+          <span class="dot"></span>
+          <span>Quantitative Methods</span>
+          <span class="dot"></span>
+          <span>Financial Technology</span>
+        </div>
+      </div>
+      <div class="head__right">
+        <div class="head__title-mark">Tearsheet</div>
+        <div class="head__date">v1.0 — May 2026</div>
+      </div>
+    </header>
+
+    <section class="nums">
+      <div class="num">
+        <div class="num__val">+16.4<em>%</em></div>
+        <div class="num__lbl">Bloomberg Trading Challenge return</div>
+        <div class="num__meta">Q4 2024 · 24 trades · Beat WLS</div>
+      </div>
+      <div class="num">
+        <div class="num__val">+91<em>%</em></div>
+        <div class="num__lbl">Single-trade return</div>
+        <div class="num__meta">Iran short · Q1 2026 · paper-traded</div>
+      </div>
+      <div class="num">
+        <div class="num__val">3</div>
+        <div class="num__lbl">Working languages</div>
+        <div class="num__meta">EN · FR · ES</div>
+      </div>
+      <div class="num">
+        <div class="num__val">2.84</div>
+        <div class="num__lbl">Sharpe — paper-traded</div>
+        <div class="num__meta">3-mo forward · 86% win</div>
+      </div>
+    </section>
+
+    <section class="body">
+      <div class="col">
+        <div class="block">
+          <h3>Profile</h3>
+          <p>Third-year Economics, Finance &amp; International Business at <strong>Oxford Brookes</strong> (3.6 GPA, First track), back from a selective exchange at <strong>Université Paris-Dauphine</strong>. Originally <strong>Charterhouse</strong> (A-levels in Maths, Economics, French). Trilingual EN / FR / ES. <em>Available for Summer 2026</em> — London · Paris · New York.</p>
+          <p>Operate at the intersection of <strong>equity research</strong>, <strong>quantitative methods</strong>, and <strong>financial technology</strong>. Comfortable across buy-side, sell-side, and quantitatively-driven asset management. Lead the Oxford Brookes team into the Bloomberg Global Trading Challenge — <em>+16.4% across 24 trades, beating the WLS benchmark</em>.</p>
+        </div>
+
+        <div class="block">
+          <h3>Projects · live and documented</h3>
+
+          <div class="proj">
+            <div class="proj__id">01</div>
+            <div>
+              <h4 class="proj__title">Finn's <em>Strategy</em></h4>
+              <p class="proj__desc">A research framework for systematic S&amp;P 500 E-mini futures trading. Eleven sub-strategies run in parallel with an adaptive synthesis layer that reweights each based on the detected market regime. Three-month paper-traded forward test: <strong>+156% return · 86% win rate · 2.84 Sharpe</strong>.</p>
+              <div class="proj__tags">Python · R · Alpaca Paper API · Claude API</div>
+            </div>
+          </div>
+
+          <div class="proj">
+            <div class="proj__id">02</div>
+            <div>
+              <h4 class="proj__title">SQL <em>Finance Analyser</em></h4>
+              <p class="proj__desc">Pulls bank-statement CSV exports into a local DuckDB analytics database and answers natural-language questions in SQL. DuckDB does the maths; Claude writes the queries and interprets the results.</p>
+              <div class="proj__tags">Python · DuckDB · Claude API · FastAPI</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+
+        <div class="block">
+          <h3>Languages</h3>
+          <div class="lang">
+            <span class="lang__name">English</span>
+            <div class="lang__bar"><span style="width:100%"></span></div>
+            <span class="lang__lvl">Native</span>
+          </div>
+          <div class="lang">
+            <span class="lang__name">French</span>
+            <div class="lang__bar"><span style="width:95%"></span></div>
+            <span class="lang__lvl">Bilingual · DELF B2</span>
+          </div>
+          <div class="lang">
+            <span class="lang__name">Spanish</span>
+            <div class="lang__bar"><span style="width:70%"></span></div>
+            <span class="lang__lvl">Professional</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Tools &amp; technical</h3>
+          <p style="font-size:9.5pt;line-height:1.65;color:var(--ink-2)">Python · R · SQL / DuckDB · Financial modelling · Bloomberg Terminal · Advanced Excel · Claude API · Econometrics · FastAPI · Chart.js</p>
+        </div>
+
+        <div class="block">
+          <h3>Reach</h3>
+          <dl class="stack">
+            <div class="row"><dt>Email</dt><dd>lakin.finn@gmail.com</dd></div>
+            <div class="row"><dt>Phone</dt><dd>+44 7379 056 766</dd></div>
+            <div class="row"><dt>Web</dt><dd>finnlakin.com</dd></div>
+            <div class="row"><dt>LinkedIn</dt><dd>/in/finnlakin</dd></div>
+            <div class="row"><dt>GitHub</dt><dd>/FinnTech3</dd></div>
+          </dl>
+        </div>
+
+        <div class="block">
+          <h3>Open for</h3>
+          <p style="font-size:9.5pt;line-height:1.6;color:var(--ink-2)">Summer 2026 internship conversations across equity research, asset management, quantitative trading desks, and financial-technology teams. London · Paris · New York. Always happy to talk markets, methodology, or a specific thesis.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span class="foot__mark">Finn Lakin</span>
+      <div class="qr"></div>
+      <span>finnlakin.com · v1.0 · May 2026</span>
+    </footer>
+  </section>
+</body>
+</html>

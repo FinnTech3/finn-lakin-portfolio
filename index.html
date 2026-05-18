@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finn Lakin — Equity Research · Quantitative Methods · Financial Technology</title>
+  <meta name="description" content="Finn Lakin — Economics, Finance &amp; International Business student at Oxford Brookes, recently on exchange at Université Dauphine. Led the Oxford Brookes Bloomberg Trading Challenge team to +16.4% across 24 trades, beating the WLS benchmark." />
+  <meta name="author" content="Finn Lakin" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Finn Lakin — Equity Research · Quantitative Methods · Financial Technology" />
+  <meta property="og:description" content="Bloomberg Trading Challenge team leader, +16.4% beating the WLS benchmark. Builder of an AI-augmented multi-regime trading research framework and an in-browser SQL finance analyser. Trilingual EN / FR / ES." />
+  <meta property="og:site_name"   content="Finn Lakin" />
+  <meta property="og:image"       content="assets/og-image.png" />
+  <meta property="og:image:type"  content="image/png" />
+  <meta property="og:image:alt"   content="Finn Lakin — Equity Research, Quantitative Methods, Financial Technology" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="Finn Lakin — Equity Research · Quantitative Methods · Financial Technology" />
+  <meta name="twitter:description" content="Trilingual Economics &amp; Finance student. Bloomberg Trading Challenge team leader. Builder of quant research tools." />
+  <meta name="twitter:image"      content="assets/og-image.png" />
+
+  <!-- Favicons (SVG primary, ICO fallback, Apple touch) -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="manifest" href="assets/site.webmanifest" />
+
+  <!-- Theme colour for mobile browsers -->
+  <meta name="theme-color" content="#07070f" />
+
+  <!-- ============================================================
+       SECURITY HEADERS (meta-tag equivalents — also set at host/CDN level)
+       ============================================================ -->
+  <!-- Block content sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <!-- Strict referrer policy -->
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+  <!-- Disallow being framed by other origins (clickjacking protection) -->
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+  <!-- Restrict powerful browser APIs (geolocation, camera, mic, etc.) -->
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), camera=(), microphone=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" />
+  <!--
+    Content Security Policy.
+    - default-src 'self'             — only own-origin resources by default
+    - style-src includes fonts.googleapis.com (used for Cormorant Garamond) + 'unsafe-inline' for hero animation styles
+    - font-src includes fonts.gstatic.com (Google Fonts CDN)
+    - script-src includes jsdelivr.net for the Chart.js CDN bundle
+    - img-src allows data: for SVG sprites and the OG image
+    - frame-src 'self' to embed cv-preview.html and the finance analyser locally; the deployed analyser host should be added explicitly
+    - connect-src 'self' http://127.0.0.1:8000 covers the local finance analyser API
+    - object-src 'none' to block legacy plug-ins (Flash, Java)
+    - base-uri 'self' to prevent <base> injection
+    - form-action 'self' to lock the form-submission target
+    - frame-ancestors 'self' (CSP equivalent of X-Frame-Options)
+  -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' https://fonts.gstatic.com data:;
+    img-src 'self' data: blob:;
+    frame-src 'self' http://127.0.0.1:8000 http://localhost:8000 https://finance-analysis-opml.onrender.com;
+    connect-src 'self' http://127.0.0.1:8000 http://localhost:8000 https://finance-analysis-opml.onrender.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self' mailto: tel:;
+    frame-ancestors 'self';
+  " />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD — Person schema for richer search results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Finn Lakin",
+    "givenName": "Finn",
+    "familyName": "Lakin",
+    "url": "https://finnlakin.com",
+    "email": "lakin.finn@gmail.com",
+    "telephone": "+44-7379-056766",
+    "jobTitle": "Economics, Finance & International Business student",
+    "description": "Trilingual finance student. Bloomberg Global Trading Challenge team leader (+16.4% across 24 trades). Builder of a multi-regime systematic trading research framework and an in-browser SQL finance analyser.",
+    "image": "https://finnlakin.com/assets/og-image.png",
+    "alumniOf": [
+      { "@type": "EducationalOrganization", "name": "Université Paris-Dauphine" },
+      { "@type": "EducationalOrganization", "name": "Charterhouse School" }
+    ],
+    "affiliation": {
+      "@type": "EducationalOrganization",
+      "name": "Oxford Brookes University"
+    },
+    "knowsLanguage": ["en", "fr", "es"],
+    "knowsAbout": [
+      "Equity Research", "Quantitative Methods", "Financial Technology",
+      "Python", "R", "SQL", "DuckDB", "Bloomberg Terminal",
+      "Financial Modelling", "Econometrics"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/finnlakin/",
+      "https://github.com/FinnTech3"
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Chart.js loaded from jsDelivr with Subresource Integrity (SRI) hash -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"
+          integrity="sha384-NrKB+u6Ts6AtkIhwPixiKTzgSKNblyhlk0Sohlgar9UHUBzai/sgnNNWWd291xqt"
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav__logo">FL</a>
+    <ul class="nav__links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#testimonials">Endorsements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav__palette" id="navPalette" aria-label="Switch palette" title="Switch to FT Pink">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <circle cx="7" cy="7" r="5.6" stroke="currentColor" stroke-width="1.1"/>
+        <path d="M7 1.4 A 5.6 5.6 0 0 1 7 12.6 Z" fill="currentColor"/>
+      </svg>
+    </button>
+    <button class="nav__burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <style>
+    .nav__palette {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      margin-left: 1rem;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .nav__palette:hover {
+      color: var(--gold);
+      border-color: var(--border-2);
+      background: var(--gold-dim);
+    }
+    .nav__palette svg { transition: transform 0.4s var(--ease); }
+    .nav__palette:hover svg { transform: rotate(180deg); }
+    @media (max-width: 860px) {
+      .nav__palette { margin-left: auto; margin-right: 0.6rem; }
+    }
+  </style>
+  <script>
+    (function () {
+      const KEY = 'fl-palette';
+      const html = document.documentElement;
+      const btn  = document.getElementById('navPalette');
+      const apply = (pal) => {
+        if (pal === 'ft') {
+          html.setAttribute('data-palette', 'ft');
+          if (btn) btn.title = 'Switch to Brass on Black (dark)';
+        } else {
+          html.removeAttribute('data-palette');
+          if (btn) btn.title = 'Switch to FT Pink (light)';
+        }
+        try { localStorage.setItem(KEY, pal); } catch (e) {}
+      };
+      apply(localStorage.getItem(KEY) === 'ft' ? 'ft' : 'dark');
+      btn?.addEventListener('click', () => {
+        apply(html.getAttribute('data-palette') === 'ft' ? 'dark' : 'ft');
+      });
+    })();
+  </script>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about" class="mobile-link">About</a></li>
+      <li><a href="#timeline" class="mobile-link">Timeline</a></li>
+      <li><a href="#projects" class="mobile-link">Projects</a></li>
+      <li><a href="#skills" class="mobile-link">Skills</a></li>
+      <li><a href="#testimonials" class="mobile-link">Endorsements</a></li>
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero" data-screen-label="00 Hero">
+    <div class="hero__glow"></div>
+
+    <div class="hero__content">
+      <span class="hero__eyebrow">
+        <span class="hero__dot"></span>
+        Oxford Brookes &nbsp;·&nbsp; ex-Université Dauphine &nbsp;·&nbsp; Class of 2027
+      </span>
+      <h1 class="hero__name">
+        <span class="hero__name-line" data-delay="0">Finn</span>
+        <span class="hero__name-line" data-delay="1">Lakin<span class="hero__name-stop">.</span></span>
+      </h1>
+      <div class="hero__rule" data-delay="2"></div>
+      <p class="hero__sub" data-delay="3">
+        Equity Research &nbsp;&nbsp;·&nbsp;&nbsp; Quantitative Methods &nbsp;&nbsp;·&nbsp;&nbsp; Financial Technology
+      </p>
+
+      <p class="hero__lead" data-delay="4">
+        Led the Oxford Brookes team to <strong>+16.4%</strong> across 24 trades in the <strong>Bloomberg Global Trading Challenge</strong> — beating the WLS benchmark across a field of <strong>10,240 students</strong> in 46 countries.
+      </p>
+      <p class="hero__desc" data-delay="5">
+        Trilingual economics &amp; finance student bridging fundamental research, quantitative methods, and software engineering &mdash; with shipped, working tools to prove it.
+      </p>
+      <p class="hero__availability" data-delay="6">
+        <span class="hero__avail-dot"></span>
+        Available for Summer 2026 internships &mdash; London · Paris · New York
+      </p>
+      <div class="hero__actions" data-delay="7">
+        <a href="#projects" class="btn btn--gold">View Projects</a>
+        <button class="btn btn--ghost" id="previewCvBtn">
+          <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 2C3.5 2 1.5 4 1 6c.5 2 2.5 4 5 4s4.5-2 5-4c-.5-2-2.5-4-5-4zm0 6a2 2 0 110-4 2 2 0 010 4z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+          Preview CV
+        </button>
+        <a href="assets/finn-lakin-cv.pdf" class="btn btn--ghost" download>Download CV</a>
+        <a href="tearsheet.html" class="btn btn--ghost" target="_blank" rel="noopener">Tearsheet</a>
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <span class="hero__scroll-line"></span>
+      <span class="hero__scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section" id="about">
+    <div class="container">
+      <div class="section-label" data-animate>
+        <span class="section-num">01</span>
+        <span>About</span>
+      </div>
+
+      <div class="about__grid">
+        <div class="about__text" data-animate data-delay-animate="0.1">
+          <h2 class="about__heading">
+            Why finance, and<br />
+            <em>why this way.</em>
+          </h2>
+          <p>
+            I read Economics, Finance &amp; International Business at <strong>Oxford Brookes</strong> &mdash; currently a 3.6/4.0 GPA, on track for First-Class Honours &mdash; and have just completed an exchange year at <strong>Université Dauphine</strong> in Paris, one of the top economics faculties in continental Europe. I came up through <strong>Charterhouse</strong> with A-levels in Mathematics, Economics and French, and the DELF B2 in French.
+          </p>
+          <p>
+            Finance is where the two things I care about most collide: <em>understanding markets</em> and <em>building the analytical infrastructure to read them faster than anyone else</em>. In Q4&nbsp;2024 I led the Oxford Brookes team in the <strong>Bloomberg Global Trading Challenge</strong> &mdash; a global competition of 10,240 students across 396 universities &mdash; closing the window <strong>+16.4%</strong> across 24 trades on a $1M Bloomberg Terminal book, outperforming the WLS Index benchmark. That experience crystallised the thesis behind everything I&rsquo;ve built since: directional conviction is multiplied by tooling.
+          </p>
+          <p>
+            I want to operate at the intersection of <strong>equity research, quantitative methods, and financial technology</strong> &mdash; whether that&rsquo;s a buy-side desk, a sell-side research team, or a quantitatively-driven asset manager. The two projects on this page exist because I needed them: a multi-regime futures-trading research framework powered by Claude and Alpaca&rsquo;s paper API, and a natural-language SQL finance analyser I use to interrogate my own data. I built them, document them, and stand behind every line of code.
+          </p>
+          <div class="about__links">
+            <a href="https://www.linkedin.com/in/finnlakin/" target="_blank" rel="noopener" class="about__link">
+              LinkedIn
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/FinnTech3" target="_blank" rel="noopener" class="about__link">
+              GitHub
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="mailto:lakin.finn@gmail.com" class="about__link">
+              lakin.finn@gmail.com
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="about__stats" data-animate data-delay-animate="0.2">
+          <!-- Headline stat — Bloomberg challenge gets the dominant treatment -->
+          <div class="stat-card stat-card--featured">
+            <span class="stat-card__num">+16.4<span class="stat-card__pct">%</span></span>
+            <span class="stat-card__label">Bloomberg Global Trading Challenge — beat WLS benchmark</span>
+            <span class="stat-card__meta">Q4 2024 · 24 executed trades · 10,240 students globally</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num">+91<span class="stat-card__pct">%</span></span>
+            <span class="stat-card__label">Single-trade return &mdash; Iran escalation short &mdash; paper-traded Q1 2026</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num">3</span>
+            <span class="stat-card__label">Working languages &mdash; EN native &nbsp;&middot;&nbsp; FR bilingual &nbsp;&middot;&nbsp; ES professional</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num">2.84</span>
+            <span class="stat-card__label">Sharpe &mdash; paper-traded strategy &nbsp;&middot;&nbsp; 86% win rate &nbsp;&middot;&nbsp; 3-mo forward</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card__num">4<span class="stat-card__pct">yr+</span></span>
+            <span class="stat-card__label">Energy-market research &mdash; Jura Consulting &mdash; ongoing since 2021</span>
+          </div>
+          <div class="about__tags">
+            <span class="tag">Oxford Brookes</span>
+            <span class="tag">ex-Dauphine Paris</span>
+            <span class="tag">Charterhouse</span>
+            <span class="tag">Bloomberg Terminal</span>
+            <span class="tag">Bilingual FR/EN</span>
+            <span class="tag">DELF B2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE (Education + Work Experience) -->
+  <section class="timeline-sec section" id="timeline">
+    <div class="container">
+      <div class="section-label" data-animate>
+        <span class="section-num">02</span>
+        <span>Timeline</span>
+      </div>
+
+      <div class="timeline__header" data-animate>
+        <h2 class="timeline__heading">Academic &amp; professional path</h2>
+        <p class="timeline__sub">An interactive view of where I&rsquo;ve studied, what I&rsquo;ve worked on, and the moments worth marking.</p>
+      </div>
+
+      <div class="timeline-toggle" data-animate role="tablist" aria-label="Timeline view">
+        <button class="timeline-toggle__btn" data-view="education" role="tab" aria-selected="false" aria-controls="timelinePanel">
+          <span class="timeline-toggle__dot timeline-toggle__dot--gold"></span>
+          Education
+        </button>
+        <button class="timeline-toggle__btn" data-view="work" role="tab" aria-selected="false" aria-controls="timelinePanel">
+          <span class="timeline-toggle__dot timeline-toggle__dot--yellow"></span>
+          Work Experience
+        </button>
+        <button class="timeline-toggle__btn active" data-view="both" role="tab" aria-selected="true" aria-controls="timelinePanel">
+          <span class="timeline-toggle__dot timeline-toggle__dot--both"></span>
+          Combined
+        </button>
+      </div>
+
+      <div class="timeline" id="timelinePanel" data-animate role="tabpanel">
+        <div class="timeline__rail"></div>
+        <div class="timeline__rail-marker timeline__rail-marker--now">
+          <span>Today &mdash; May&nbsp;2026</span>
+        </div>
+
+        <!-- Education entries -->
+        <article class="timeline-entry timeline-entry--edu" data-year="2023-2027">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Sep 2023 &mdash; Jun 2027</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Bachelor of Science</span>
+              <span class="timeline-entry__badge timeline-entry__badge--gold">In progress</span>
+            </div>
+            <h3 class="timeline-entry__title">Economics, Finance &amp; International Business</h3>
+            <div class="timeline-entry__org">Oxford Brookes University &nbsp;·&nbsp; Oxford, UK</div>
+            <ul class="timeline-entry__bullets">
+              <li><strong>3.6&nbsp;/&nbsp;4.0 GPA</strong> &mdash; on track for First-Class Honours</li>
+              <li>Coursework: Econometrics, Financial Modelling, Investment Analysis, Corporate Finance, Macroeconomic Theory, Statistical Methods (R)</li>
+              <li>Member, Oxford Brookes Investment Society &mdash; led the Bloomberg Trading Challenge team</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-entry timeline-entry--edu" data-year="2025-2026">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Sep 2025 &mdash; May 2026</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Exchange Year &mdash; Completed</span>
+              <span class="timeline-entry__badge timeline-entry__badge--blue">Selective</span>
+            </div>
+            <h3 class="timeline-entry__title">International Business &amp; Data Analysis in R</h3>
+            <div class="timeline-entry__org">Université Paris&nbsp;Dauphine &nbsp;·&nbsp; Paris, France</div>
+            <ul class="timeline-entry__bullets">
+              <li>Selected for academic exchange at one of continental Europe&rsquo;s most rigorous economics faculties</li>
+              <li>Studied taught entirely in French &mdash; coursework in Business Data Analysis (R), Statistical Inference, and International Macro</li>
+              <li>Strengthened working-language fluency to bilingual operating level; sat coursework alongside MBA-track French students</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-entry timeline-entry--edu" data-year="2017-2023">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Sep 2017 &mdash; Jul 2023</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Secondary &amp; Sixth Form</span>
+              <span class="timeline-entry__badge timeline-entry__badge--neutral">A-levels &amp; IGCSEs</span>
+            </div>
+            <h3 class="timeline-entry__title">Charterhouse</h3>
+            <div class="timeline-entry__org">Surrey, United Kingdom &nbsp;·&nbsp; Top-10 UK independent school</div>
+            <ul class="timeline-entry__bullets">
+              <li><strong>A-levels:</strong> Mathematics, Economics, French</li>
+              <li><strong>IGCSEs (10):</strong> Maths, Physics, Chemistry, Biology, English Lit &amp; Lang, French, Spanish, History, Art, Geography</li>
+              <li><strong>Honours:</strong> Gold &mdash; BPhO Intermediate Physics Challenge · Silver &mdash; UKMT Senior Maths Challenge · Edexcel Algebra Level 3 Award · DELF B2 French</li>
+              <li><strong>Athletics:</strong> Top-100 UK ranked, hurdles (2022); Surrey county-best time. Competitive Slalom &amp; Giant Slalom skiing</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Work entries -->
+        <article class="timeline-entry timeline-entry--work" data-year="2024-now">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Oct 2024 &mdash; Nov 2024</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Team Leader &mdash; Competition</span>
+              <span class="timeline-entry__badge timeline-entry__badge--green">+16.4%</span>
+            </div>
+            <h3 class="timeline-entry__title">Bloomberg Global Trading Challenge</h3>
+            <div class="timeline-entry__org">Oxford Brookes Investment Society &nbsp;·&nbsp; Bloomberg Terminal</div>
+            <ul class="timeline-entry__bullets">
+              <li>Led a five-person team in Bloomberg&rsquo;s flagship global trading competition (10,240 students · 2,453 teams · 396 universities · 46 countries)</li>
+              <li>Delivered <strong>+16.4% time-weighted return</strong> across 24 executed trades, outperforming the Bloomberg WLS Index benchmark</li>
+              <li>Set investment thesis, sized positions, and presented weekly research and trade-attribution reviews to the wider society</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-entry timeline-entry--work" data-year="2024">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Jun 2024 &mdash; Sep 2024</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Operations Manager</span>
+              <span class="timeline-entry__badge timeline-entry__badge--neutral">Summer</span>
+            </div>
+            <h3 class="timeline-entry__title">Avington Park &mdash; Guest Manager</h3>
+            <div class="timeline-entry__org">Hampshire, United Kingdom</div>
+            <ul class="timeline-entry__bullets">
+              <li>Managed large-scale event operations team across high-profile venues; oversaw logistics, client check-in and guest support</li>
+              <li>Re-designed the guest check-in workflow &mdash; reduced average wait time by 10%</li>
+              <li>Coordinated multi-stakeholder project planning under tight, fixed-date deadlines</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-entry timeline-entry--work" data-year="2023">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Jun 2023 &mdash; Aug 2023</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Summer Intern &mdash; Business Operations</span>
+              <span class="timeline-entry__badge timeline-entry__badge--neutral">Internship</span>
+            </div>
+            <h3 class="timeline-entry__title">Nicolas James Group</h3>
+            <div class="timeline-entry__org">Southampton, United Kingdom</div>
+            <ul class="timeline-entry__bullets">
+              <li>Embedded across a UK property and business-services group: cross-functional project planning, internal reporting, client communications</li>
+              <li>Built weekly KPI consolidation dashboards used in senior management review</li>
+              <li>Assisted with audit-readiness documentation and compliance standardisation</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-entry timeline-entry--work" data-year="2021-now">
+          <div class="timeline-entry__dot"></div>
+          <div class="timeline-entry__date">Sep 2021 &mdash; Present</div>
+          <div class="timeline-entry__card">
+            <div class="timeline-entry__header">
+              <span class="timeline-entry__type">Research Assistant</span>
+              <span class="timeline-entry__badge timeline-entry__badge--yellow">Ongoing</span>
+            </div>
+            <h3 class="timeline-entry__title">Jura Consulting</h3>
+            <div class="timeline-entry__org">Winchester, United Kingdom</div>
+            <ul class="timeline-entry__bullets">
+              <li>Compile intraday market-data summaries and concise research notes on global energy supply, demand and price-action for the senior trading desk</li>
+              <li>Maintain equity and commodity sector watchlists; flag actionable catalysts ahead of earnings and macro events</li>
+              <li>Designed a tagged document-management workflow that reduced internal record retrieval time by ~15%</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects section" id="projects">
+    <div class="container">
+      <div class="section-label" data-animate>
+        <span class="section-num">03</span>
+        <span>Projects</span>
+      </div>
+
+      <div class="projects__header" data-animate>
+        <h2 class="projects__heading">Selected work</h2>
+        <p class="projects__sub">
+          Production-grade research tooling. Built end-to-end, documented in full, and deployed for daily use.
+        </p>
+      </div>
+
+      <div class="projects__grid" id="projectsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills section" id="skills">
+    <div class="container">
+      <div class="section-label" data-animate>
+        <span class="section-num">04</span>
+        <span>Skills</span>
+      </div>
+
+      <div class="skills__grid">
+
+        <div class="skills__group" data-animate>
+          <h3 class="skills__group-title">Technical</h3>
+          <div class="skills__tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">R</span>
+            <span class="skill-tag">SQL / DuckDB</span>
+            <span class="skill-tag">Financial Modelling</span>
+            <span class="skill-tag">Bloomberg Terminal</span>
+            <span class="skill-tag">Advanced Excel</span>
+            <span class="skill-tag">Data Analysis</span>
+            <span class="skill-tag">Claude API</span>
+            <span class="skill-tag">Econometrics</span>
+            <span class="skill-tag">AI Modelling</span>
+          </div>
+        </div>
+
+        <div class="skills__group" data-animate data-delay-animate="0.1">
+          <h3 class="skills__group-title">Finance</h3>
+          <div class="skills__tags">
+            <span class="skill-tag">Options &amp; Derivatives</span>
+            <span class="skill-tag">Equity Analysis</span>
+            <span class="skill-tag">Energy Markets</span>
+            <span class="skill-tag">ForEx</span>
+            <span class="skill-tag">Portfolio Management</span>
+            <span class="skill-tag">Investment Research</span>
+          </div>
+        </div>
+
+        <div class="skills__group" data-animate data-delay-animate="0.2">
+          <h3 class="skills__group-title">Languages</h3>
+          <div class="skills__tags">
+            <span class="skill-tag skill-tag--gold">English — Native</span>
+            <span class="skill-tag skill-tag--gold">French — Bilingual</span>
+            <span class="skill-tag">Spanish — Professional</span>
+          </div>
+        </div>
+
+        <div class="skills__group" data-animate data-delay-animate="0.3">
+          <h3 class="skills__group-title">Other</h3>
+          <div class="skills__tags">
+            <span class="skill-tag">Athletics — UK Top 100 Hurdles</span>
+            <span class="skill-tag">Competitive Skiing</span>
+            <span class="skill-tag">Project Planning</span>
+            <span class="skill-tag">Team Leadership</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials section" id="testimonials">
+    <div class="container">
+      <div class="section-label" data-animate>
+        <span class="section-num">05</span>
+        <span>Endorsements</span>
+      </div>
+
+      <div class="testimonials__header" data-animate>
+        <h2 class="testimonials__heading">Selected endorsements</h2>
+        <p class="testimonials__sub">From people who&rsquo;ve worked alongside me.</p>
+      </div>
+
+      <div class="testimonials__grid">
+        <figure class="testimonial-card" data-animate data-delay-animate="0.05">
+          <svg class="testimonial-card__quote" width="28" height="22" viewBox="0 0 28 22" fill="none" aria-hidden="true">
+            <path d="M0 22V12C0 5.4 4.3 0.6 12 0V4.4C8.5 5.2 6.6 7.8 6.4 12H12V22H0ZM16 22V12C16 5.4 20.3 0.6 28 0V4.4C24.5 5.2 22.6 7.8 22.4 12H28V22H16Z" fill="currentColor"/>
+          </svg>
+          <blockquote class="testimonial-card__quote-text">
+            Finn ran our Bloomberg Trading Challenge team with the calm of someone twice his age. He set the thesis, structured how we sized positions, and ran the team retros honestly when trades went against us. The +16.4% finish was an outcome of process, not luck &mdash; and he&rsquo;s the reason that process existed.
+          </blockquote>
+          <figcaption class="testimonial-card__cite">
+            <span class="testimonial-card__name">Vadym Kosmarov</span>
+            <span class="testimonial-card__role">Teammate · Bloomberg Global Trading Challenge 2024</span>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonial-card" data-animate data-delay-animate="0.15">
+          <svg class="testimonial-card__quote" width="28" height="22" viewBox="0 0 28 22" fill="none" aria-hidden="true">
+            <path d="M0 22V12C0 5.4 4.3 0.6 12 0V4.4C8.5 5.2 6.6 7.8 6.4 12H12V22H0ZM16 22V12C16 5.4 20.3 0.6 28 0V4.4C24.5 5.2 22.6 7.8 22.4 12H28V22H16Z" fill="currentColor"/>
+          </svg>
+          <blockquote class="testimonial-card__quote-text">
+            I&rsquo;ve worked with Finn on London-based transaction advisory deals where precision and turnaround matter. His analytical output punches well above his year of study &mdash; the spreadsheets are clean, the assumptions are documented, and the commentary is sharp enough to drop straight into a client deck. He&rsquo;s one of the most commercially-minded students I&rsquo;ve come across.
+          </blockquote>
+          <figcaption class="testimonial-card__cite">
+            <span class="testimonial-card__name">William Du-Cann</span>
+            <span class="testimonial-card__role">Collaborator · Transaction Advisory, London</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact section" id="contact">
+    <div class="container">
+      <div class="section-label" data-animate>
+        <span class="section-num">06</span>
+        <span>Contact</span>
+      </div>
+
+      <div class="contact__body" data-animate>
+        <h2 class="contact__heading">
+          Let&rsquo;s talk.
+        </h2>
+        <p class="contact__sub">
+          Open to Summer 2026 internship conversations across equity research, asset management, quantitative trading desks, and financial-technology teams in London, Paris, or New York. Always happy to talk markets, methodology, or a specific thesis.
+        </p>
+
+        <div class="contact__actions">
+          <a href="mailto:lakin.finn@gmail.com" class="btn btn--gold">
+            lakin.finn@gmail.com
+          </a>
+          <a href="tel:+447379056766" class="btn btn--ghost">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5C2 3.1 3.1 2 4.5 2H5l1.5 3L5 6c.7 1.5 1.5 2.3 3 3l1-1.5L12 9v.5c0 1.4-1.1 2.5-2.5 2.5C5.7 12 2 8.3 2 4.5Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            +44 7379 056766
+          </a>
+          <a href="https://www.linkedin.com/in/finnlakin/" target="_blank" rel="noopener" class="btn btn--ghost">
+            LinkedIn
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="https://github.com/FinnTech3" target="_blank" rel="noopener" class="btn btn--ghost">
+            GitHub
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="btn btn--ghost" id="previewCvBtn2">
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 2C3.5 2 1.5 4 1 6c.5 2 2.5 4 5 4s4.5-2 5-4c-.5-2-2.5-4-5-4zm0 6a2 2 0 110-4 2 2 0 010 4z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+            Preview CV
+          </button>
+          <a href="assets/finn-lakin-cv.pdf" download class="btn btn--ghost">
+            Download CV
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 5l3 3 3-3M2 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="footer__logo">FL</span>
+      <span class="footer__copy">&copy; 2026 Finn Lakin</span>
+      <a href="colophon.html" class="footer__link">Colophon</a>
+      <a href="tearsheet.html" class="footer__link" target="_blank" rel="noopener">Tearsheet</a>
+      <a href="privacy.html" class="footer__link">Privacy</a>
+      <a href="legal.html" class="footer__link">Legal</a>
+      <span class="footer__built">Built with intention.</span>
+    </div>
+  </footer>
+
+  <!-- CV PREVIEW MODAL -->
+  <div class="cv-modal" id="cvModal" role="dialog" aria-modal="true" aria-label="CV Preview">
+    <div class="cv-modal__backdrop" id="cvModalBackdrop"></div>
+    <div class="cv-modal__panel">
+      <div class="cv-modal__toolbar">
+        <span class="cv-modal__title">Finn Lakin — CV</span>
+        <div class="cv-modal__actions">
+          <a href="assets/finn-lakin-cv.docx" download class="cv-modal__dl">
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 5l3 3 3-3M2 10h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download
+          </a>
+          <button class="cv-modal__close" id="cvModalClose" aria-label="Close">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="cv-modal__body" id="cvModalBody">
+        <div class="cv-modal__loading" id="cvModalLoading">
+          <span class="cv-modal__spinner"></span>
+          <span>Loading CV…</span>
+        </div>
+        <iframe
+          id="cvFrame"
+          class="cv-modal__frame"
+          title="CV Preview"
+          src="about:blank">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT PANEL -->
+  <div id="projectPanel" class="project-panel" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Project detail">
+    <div class="project-panel__scroll" id="panelScroll">
+      <div class="project-panel__topbar" style="position:relative">
+        <div class="project-panel__topbar-left">
+          <button class="project-panel__back" id="panelClose">
+            <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+              <path d="M13 5H1M1 5L5 1M1 5L5 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            All Projects
+          </button>
+          <span class="project-panel__brand">Finn Lakin</span>
+        </div>
+        <div class="panel-nav" id="panelNav">
+          <button class="panel-nav__btn" id="panelPrev" aria-label="Previous project">&#8592;</button>
+          <span class="panel-nav__pos" id="panelNavPos">1 / 2</span>
+          <button class="panel-nav__btn" id="panelNext" aria-label="Next project">&#8594;</button>
+        </div>
+        <button class="project-panel__x" aria-label="Close">&#x2715;</button>
+      </div>
+      <div id="panelContent" class="project-panel__content"></div>
+    </div>
+  </div>
+  <div id="panelBackdrop" class="panel-backdrop"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
