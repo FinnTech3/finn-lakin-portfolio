@@ -76,3 +76,6 @@ coverage/
 # OS-level temp & swap files
 *.tmp
 *.temp
+
+# Local Netlify folder
+.netlify
