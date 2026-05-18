@@ -1,0 +1,17 @@
+# Finn's Strategy — Python runtime dependencies
+anthropic>=0.40.0
+alpaca-py>=0.30.0
+pandas>=2.2.0
+numpy>=1.26.0
+python-dotenv>=1.0.0
+pydantic>=2.6.0
+rich>=13.7.0
+duckdb>=0.10.0
+yfinance>=0.2.40
+requests>=2.31.0
+
+# dev / tooling
+pytest>=8.0.0
+pytest-cov>=4.1.0
+ruff>=0.4.0
+mypy>=1.10.0

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OG · Finn Lakin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; background: #0A0A0C; }
+    body { font-family: 'Times New Roman', serif; }
+    .og {
+      width: 1200px;
+      height: 630px;
+      background: #0A0A0C;
+      color: #F0EAD6;
+      position: relative;
+      overflow: hidden;
+      padding: 72px 72px 64px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .og::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(240,234,214,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,234,214,0.04) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 70% at 25% 50%, black 0%, transparent 80%);
+    }
+    .og::after {
+      content: '';
+      position: absolute;
+      top: -10%; right: -10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(ellipse, rgba(182,136,74,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .og > * { position: relative; z-index: 1; }
+
+    .og__top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .og__rule {
+      width: 38px; height: 1px;
+      background: #B6884A;
+    }
+    .og__eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #C2B89F;
+    }
+
+    .og__mid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .og__name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 168px;
+      font-weight: 600;
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      color: #F0EAD6;
+      margin: 0;
+    }
+    .og__name em {
+      font-style: italic;
+      color: #B6884A;
+      font-weight: 500;
+    }
+    .og__sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #F0EAD6;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .og__sub .dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #B6884A;
+    }
+
+    .og__bot {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(240,234,214,0.12);
+    }
+    .og__stats {
+      display: flex;
+      gap: 56px;
+    }
+    .og__stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 600;
+      color: #B6884A;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+    .og__stat-num em {
+      font-style: italic;
+      font-size: 0.55em;
+      font-weight: 400;
+      opacity: 0.85;
+    }
+    .og__stat-lbl {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #C2B89F;
+      margin-top: 8px;
+    }
+    .og__sig {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #C2B89F;
+      text-align: right;
+    }
+    .og__sig-mark {
+      color: #B6884A;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="og" id="og">
+    <div class="og__top">
+      <span class="og__rule"></span>
+      <span class="og__eyebrow">Oxford Brookes · ex-Université Dauphine</span>
+    </div>
+
+    <div class="og__mid">
+      <h1 class="og__name">Finn<br><em>Lakin.</em></h1>
+      <div class="og__sub">
+        <span>Equity Research</span>
+        <span class="dot"></span>
+        <span>Quantitative Methods</span>
+        <span class="dot"></span>
+        <span>Financial Technology</span>
+      </div>
+    </div>
+
+    <div class="og__bot">
+      <div class="og__stats">
+        <div>
+          <div class="og__stat-num">+16.4<em>%</em></div>
+          <div class="og__stat-lbl">Bloomberg Challenge</div>
+        </div>
+        <div>
+          <div class="og__stat-num">3.6<em>/4.0</em></div>
+          <div class="og__stat-lbl">GPA · First Track</div>
+        </div>
+        <div>
+          <div class="og__stat-num">3</div>
+          <div class="og__stat-lbl">EN · FR · ES</div>
+        </div>
+      </div>
+      <div class="og__sig">
+        <span class="og__sig-mark">FL</span><br>
+        finnlakin.com
+      </div>
+    </div>
+  </div>
+</body>
+</html>

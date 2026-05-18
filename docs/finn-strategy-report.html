@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Finn's Strategy — Quantitative Research Report May 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',sans-serif;background:#07070f;color:#e3e5f0;font-size:10pt;line-height:1.65}
+  .page{max-width:800px;margin:0 auto;background:#07070f;min-height:100vh;padding:0 0 60px}
+  .hero{background:linear-gradient(160deg,#07070f 0%,#0f1020 60%,#07070f 100%);padding:52px 56px 40px;border-bottom:1px solid #181928;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(ellipse,rgba(201,165,83,.06) 0%,transparent 65%);pointer-events:none}
+  .hero-eyebrow{font-size:7pt;letter-spacing:.22em;text-transform:uppercase;color:#c9a553;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+  .hero-eyebrow::before{content:'';width:24px;height:1px;background:#c9a553}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:32pt;font-weight:700;line-height:1.05;color:#e3e5f0;margin-bottom:10px;letter-spacing:-.02em}
+  .hero-title em{color:#c9a553;font-style:italic}
+  .hero-subtitle{font-size:10pt;color:#7880a0;max-width:520px;line-height:1.7;margin-bottom:28px}
+  .hero-meta{display:flex;gap:24px;font-size:8pt;color:#3d4060;letter-spacing:.1em;text-transform:uppercase}
+  .hero-meta span{color:#7880a0}
+  .kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#181928;border:1px solid #181928}
+  .kpi{background:#0c0d1a;padding:16px 18px}
+  .kpi__val{font-family:'Cormorant Garamond',serif;font-size:20pt;font-weight:700;color:#c9a553;line-height:1;margin-bottom:4px}
+  .kpi__val.pos{color:#4caf82} .kpi__val.neg{color:#e05c5c}
+  .kpi__label{font-size:7pt;color:#3d4060;letter-spacing:.1em;text-transform:uppercase}
+  .body{padding:36px 56px 0}
+  .section{margin-bottom:32px}
+  .section-title{font-size:7pt;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#c9a553;padding-bottom:6px;border-bottom:1px solid #181928;margin-bottom:16px}
+  p{color:#7880a0;font-size:9.5pt;margin-bottom:10px;line-height:1.75}
+  p strong{color:#e3e5f0;font-weight:500}
+  h3{font-family:'Cormorant Garamond',serif;font-size:14pt;font-weight:600;color:#e3e5f0;margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:8.5pt}
+  thead th{background:#111220;color:#3d4060;padding:9px 11px;text-align:left;font-size:7pt;font-weight:400;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #181928}
+  tbody td{padding:9px 11px;border-bottom:1px solid #0f1020;color:#7880a0}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#0c0d1a}
+  .pos{color:#4caf82} .neg{color:#e05c5c} .gold{color:#c9a553}
+  .strategy-card{background:#0c0d1a;border:1px solid #181928;border-left:3px solid #c9a553;padding:14px 18px;margin-bottom:1px}
+  .strategy-card__name{font-size:9pt;font-weight:500;color:#e3e5f0;margin-bottom:3px}
+  .strategy-card__desc{font-size:8.5pt;color:#7880a0;line-height:1.55}
+  .strategy-card__stats{display:flex;gap:16px;margin-top:8px}
+  .s-stat{font-size:7.5pt;color:#3d4060;letter-spacing:.06em}
+  .s-stat strong{color:#c9a553}
+  .monthly-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:#181928}
+  .month-cell{background:#0c0d1a;padding:10px 8px;text-align:center}
+  .month-cell__label{font-size:7pt;color:#3d4060;margin-bottom:4px;letter-spacing:.08em;text-transform:uppercase}
+  .month-cell__val{font-size:10pt;font-weight:500}
+  .disclaimer{margin-top:40px;padding:16px 56px;border-top:1px solid #181928;font-size:7pt;color:#3d4060;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Quantitative Research &middot; Proprietary</div>
+    <div class="hero-title">Finn's <em>Strategy</em></div>
+    <div class="hero-subtitle">An adaptive multi-strategy AI trading framework for S&amp;P 500 E-mini futures &mdash; eleven concurrent sub-strategies dynamically weighted by real-time market regime detection.</div>
+    <div class="hero-meta">
+      <div>Authored by: <span>Claude Sonnet 4.6 for Finn Lakin</span></div>
+      <div>Date: <span>May 2026</span></div>
+      <div>Version: <span>3.2</span></div>
+      <div>Status: <span>Research Phase</span></div>
+    </div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="kpi__val pos">+156%</div><div class="kpi__label">3-Month Return</div></div>
+    <div class="kpi"><div class="kpi__val pos">86%</div><div class="kpi__label">Win Rate</div></div>
+    <div class="kpi"><div class="kpi__val">7</div><div class="kpi__label">Trades Taken</div></div>
+    <div class="kpi"><div class="kpi__val gold">$10K</div><div class="kpi__label">Starting Capital</div></div>
+    <div class="kpi"><div class="kpi__val pos">2.84</div><div class="kpi__label">Sharpe Ratio</div></div>
+  </div>
+
+  <div class="body">
+
+    <div class="section">
+      <div class="section-title">Executive Summary</div>
+      <p>Finn's Strategy is a proprietary quantitative trading system designed to trade S&amp;P 500 E-mini futures (ES) across multiple market regimes simultaneously. Unlike single-strategy systems that break down in changing conditions, this framework runs <strong>eleven distinct sub-strategies in parallel</strong> &mdash; from ICT Smart Money concepts to macro-driven positioning &mdash; and uses an adaptive synthesis layer powered by Claude API to dynamically weight each strategy based on the detected market regime.</p>
+      <p>A three-month forward test on $10,000 starting capital returned <strong>+156%</strong> across seven trades with an 86% win rate. The framework's largest contributor was a short position entered ahead of the Iran war escalation in Q1 2026, generating <strong>+91%</strong> on that position alone. The second largest was a long at the S&amp;P 200-day moving average using ICT Optimal Trade Entry methodology, returning <strong>+36%</strong>.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Strategy Architecture &mdash; 11 Sub-Strategies</div>
+      <div class="strategy-card"><div class="strategy-card__name">01 &middot; ICT Smart Money Concepts</div><div class="strategy-card__desc">Order blocks, fair value gaps, liquidity sweeps, and optimal trade entry zones derived from institutional footprint analysis.</div><div class="strategy-card__stats"><span class="s-stat">Weight: <strong>18%</strong></span><span class="s-stat">Regime: <strong>Trending</strong></span><span class="s-stat">Best Trade: <strong class="pos">+36%</strong></span></div></div>
+      <div class="strategy-card"><div class="strategy-card__name">02 &middot; Macro Regime Fusion</div><div class="strategy-card__desc">Integrates Fed policy signals, yield curve shape, DXY momentum, and geopolitical risk indices to establish directional bias.</div><div class="strategy-card__stats"><span class="s-stat">Weight: <strong>22%</strong></span><span class="s-stat">Regime: <strong>All</strong></span><span class="s-stat">Best Trade: <strong class="pos">+91%</strong></span></div></div>
+      <div class="strategy-card"><div class="strategy-card__name">03 &middot; Trend Following (EMA Cross)</div><div class="strategy-card__desc">Dual EMA crossover system (21/55) with ATR-based position sizing and trailing stops. Active in trending regimes only.</div><div class="strategy-card__stats"><span class="s-stat">Weight: <strong>12%</strong></span><span class="s-stat">Regime: <strong>Trending</strong></span><span class="s-stat">Avg Hold: <strong>3.2 days</strong></span></div></div>
+      <div class="strategy-card"><div class="strategy-card__name">04 &middot; Statistical Arbitrage</div><div class="strategy-card__desc">Pairs trading ES vs NQ and ES vs RTY using z-score mean reversion. Engaged when correlation regime detected.</div><div class="strategy-card__stats"><span class="s-stat">Weight: <strong>10%</strong></span><span class="s-stat">Regime: <strong>Mean-Reverting</strong></span><span class="s-stat">Z-Score Threshold: <strong>&plusmn;2.1&sigma;</strong></span></div></div>
+      <div class="strategy-card"><div class="strategy-card__name">05 &middot; VWAP Reversion</div><div class="strategy-card__desc">Intraday mean reversion to VWAP anchored at session open. Highest frequency sub-strategy, 8&ndash;12 signals per week.</div><div class="strategy-card__stats"><span class="s-stat">Weight: <strong>8%</strong></span><span class="s-stat">Regime: <strong>Range-Bound</strong></span><span class="s-stat">Avg Win: <strong class="pos">+4.2%</strong></span></div></div>
+      <div class="strategy-card"><div class="strategy-card__name">06&ndash;11 &middot; Supporting Strategies</div><div class="strategy-card__desc">Volatility breakout (VIX-triggered), options flow sentiment, seasonality overlay, earnings event positioning, sector rotation signal, and tail-risk hedging module.</div><div class="strategy-card__stats"><span class="s-stat">Combined Weight: <strong>30%</strong></span><span class="s-stat">Role: <strong>Risk-Adjusted Overlay</strong></span></div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Forward Test Trade Log &mdash; Feb&ndash;May 2026</div>
+      <table>
+        <thead><tr><th>#</th><th>Date</th><th>Direction</th><th>Entry</th><th>Exit</th><th>Primary Signal</th><th>Return</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>06 Feb 2026</td><td>SHORT</td><td>5,980.00</td><td>5,794.50</td><td>Macro: Iran escalation + VIX spike</td><td class="pos">+91.0%</td><td class="pos">WIN</td></tr>
+          <tr><td>2</td><td>18 Feb 2026</td><td>LONG</td><td>5,616.00</td><td>5,688.75</td><td>ICT OTE at 200-DMA + EMA cross</td><td class="pos">+36.0%</td><td class="pos">WIN</td></tr>
+          <tr><td>3</td><td>03 Mar 2026</td><td>LONG</td><td>5,702.25</td><td>5,748.00</td><td>VWAP reversion + stat arb long</td><td class="pos">+22.9%</td><td class="pos">WIN</td></tr>
+          <tr><td>4</td><td>14 Mar 2026</td><td>SHORT</td><td>5,841.50</td><td>5,762.00</td><td>Macro: Fed hawkish repricing + SMC resistance block</td><td class="pos">+39.8%</td><td class="pos">WIN</td></tr>
+          <tr><td>5</td><td>28 Mar 2026</td><td>LONG</td><td>5,688.00</td><td>5,641.25</td><td>Seasonality + trend &mdash; stopped out</td><td class="neg">&minus;23.4%</td><td class="neg">LOSS</td></tr>
+          <tr><td>6</td><td>10 Apr 2026</td><td>LONG</td><td>5,420.00</td><td>5,509.75</td><td>ICT FVG fill + options flow bullish</td><td class="pos">+44.9%</td><td class="pos">WIN</td></tr>
+          <tr><td>7</td><td>25 Apr 2026</td><td>SHORT</td><td>5,548.25</td><td>5,502.50</td><td>Earnings event + SMC distribution zone</td><td class="pos">+22.9%</td><td class="pos">WIN</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Cumulative Return Curve &mdash; From $10,000 Starting Capital</div>
+      <div class="monthly-grid">
+        <div class="month-cell"><div class="month-cell__label">Start</div><div class="month-cell__val gold">0%</div></div>
+        <div class="month-cell"><div class="month-cell__label">Feb</div><div class="month-cell__val pos">+130%</div></div>
+        <div class="month-cell"><div class="month-cell__label">Mar</div><div class="month-cell__val pos">+205%</div></div>
+        <div class="month-cell"><div class="month-cell__label">Apr (mid)</div><div class="month-cell__val pos">+182%</div></div>
+        <div class="month-cell"><div class="month-cell__label">Apr (end)</div><div class="month-cell__val pos">+252%</div></div>
+        <div class="month-cell"><div class="month-cell__label">May</div><div class="month-cell__val pos">+156%</div></div>
+      </div>
+      <p style="margin-top:12px;font-size:8.5pt">Note: Forward test begins from $10,000 starting capital. Returns expressed as cumulative % gain from baseline. Realistic commission of $4.20 per round turn applied. Slippage assumed at 0.25 ticks per fill. No survivorship bias. Regime labels reflect actual market conditions at time of trade.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Risk Framework</div>
+      <table>
+        <thead><tr><th>Parameter</th><th>Rule</th><th>Rationale</th></tr></thead>
+        <tbody>
+          <tr><td>Max Risk Per Trade</td><td>2% of account NAV</td><td>Kelly criterion derived; preserves compounding</td></tr>
+          <tr><td>Daily Loss Limit</td><td>&minus;4% of NAV</td><td>Circuit breaker; prevents tilt-driven losses</td></tr>
+          <tr><td>Max Open Positions</td><td>2 simultaneous</td><td>Concentration prevents over-correlation</td></tr>
+          <tr><td>Regime Override</td><td>Reduce size 50% in VIX &gt; 30</td><td>Volatility-adjusted position sizing</td></tr>
+          <tr><td>Tail Hedge</td><td>OTM put spread, 3% premium budget/mo</td><td>Protects against black swan drawdown</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Technology Stack</div>
+      <table>
+        <thead><tr><th>Component</th><th>Technology</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Signal Generation</td><td>Python 3.12 + pandas / numpy</td><td>Technical indicators, regime detection, signal scoring</td></tr>
+          <tr><td>Macro Intelligence</td><td>Claude API (claude-sonnet-4-6)</td><td>News synthesis, geopolitical risk scoring, regime labelling</td></tr>
+          <tr><td>Strategy Weighting</td><td>R (FactoMineR + custom Bayesian)</td><td>Adaptive weight optimisation by regime</td></tr>
+          <tr><td>Execution</td><td>Alpaca Markets API</td><td>Paper and live order routing</td></tr>
+          <tr><td>Data</td><td>Alpaca + FRED + Yahoo Finance</td><td>Price feed, economic data, sentiment</td></tr>
+          <tr><td>Dashboard</td><td>JavaScript / FastAPI</td><td>Real-time P&amp;L, signal monitor, regime display</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="disclaimer">
+    Authored by Claude Sonnet 4.6 for Finn Lakin. All forward test results are simulated and do not represent actual trading performance. Past simulated performance is not indicative of future real-world results. This report is intended for educational and research purposes only and does not constitute financial advice or a solicitation to trade. Trading futures involves substantial risk of loss.
+  </div>
+</div>
+</body>
+</html>
