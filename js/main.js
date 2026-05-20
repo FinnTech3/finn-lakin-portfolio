@@ -863,7 +863,9 @@ function switchPanelTab(tabId, projectId, btn) {
     if (frame && (!frame.src || frame.src === 'about:blank')) {
       // Reset UI for each attempt — clears any previous "Server offline" state
       if (fallback) fallback.style.display = 'none';
-      if (spinner) spinner.style.display = '';
+      if (spinner) spinner.style.display = 'none'; // skeleton replaces spinner
+      injectDemoSkeleton();
+      announceDemo('Finance Analyser demo loading — this may take up to 50 seconds.');
       if (note) {
         note.style.opacity = '';
         const dot = note.querySelector('.panel-demo-dot');
@@ -875,14 +877,16 @@ function switchPanelTab(tabId, projectId, btn) {
       fetch(DEMO_URL + '/api/summary', { mode: 'no-cors', signal: ctrl.signal })
         .then(() => {
           clearTimeout(timeout);
-          // Ensure fallback is hidden before iframe appears
+          removeDemoSkeleton();
           if (fallback) fallback.style.display = 'none';
           frame.src = DEMO_URL;
+          announceDemo('Finance Analyser demo is live.');
         })
         .catch(() => {
           clearTimeout(timeout);
-          if (spinner) spinner.style.display = 'none';
+          removeDemoSkeleton();
           if (fallback) fallback.style.display = 'flex';
+          announceDemo('Finance Analyser demo is offline. Please retry.');
           if (note) {
             note.style.opacity = '0.4';
             const dot = note.querySelector('.panel-demo-dot');
@@ -1045,26 +1049,7 @@ function initMobileMenu() {
   links.forEach(l => l.addEventListener('click', () => { if (open) toggle(); }));
 }
 
-/* ============================================================
-   ACTIVE NAV LINK — highlight on scroll
-   ============================================================ */
-function initActiveLinks() {
-  const sections = document.querySelectorAll('section[id]');
-  const links    = document.querySelectorAll('.nav__links a');
-
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        links.forEach(l => {
-          l.style.color = l.getAttribute('href') === `#${id}` ? 'var(--text)' : '';
-        });
-      }
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-
-  sections.forEach(s => io.observe(s));
-}
+/* initActiveLinks removed — initActiveNav (below) covers this with CSS classes */
 
 /* ============================================================
    SMOOTH ANCHOR SCROLL
@@ -1507,6 +1492,111 @@ window.addEventListener('message', e => {
 });
 
 /* ============================================================
+   BACK TO TOP BUTTON
+   ============================================================ */
+function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+  const onScroll = () => {
+    const show = window.scrollY > 600;
+    btn.hidden = false;
+    btn.classList.toggle('visible', show);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  onScroll();
+}
+
+/* ============================================================
+   COPY EMAIL BUTTON
+   ============================================================ */
+function initCopyEmail() {
+  const btn = document.getElementById('copyEmailBtn');
+  const lbl = document.getElementById('copyEmailLbl');
+  if (!btn || !lbl) return;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('lakin.finn@gmail.com');
+      lbl.textContent = '✓ Copied';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        lbl.textContent = 'Copy email';
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch (e) {}
+  });
+}
+
+/* ============================================================
+   DEMO SKELETON — replaces plain spinner while Render wakes
+   ============================================================ */
+function injectDemoSkeleton() {
+  const wrap = document.getElementById('demoWrap');
+  if (!wrap || wrap.querySelector('.panel-iframe-skeleton')) return;
+  const skel = document.createElement('div');
+  skel.className = 'panel-iframe-skeleton';
+  skel.id = 'demoSkeleton';
+  skel.innerHTML = `
+    <div class="skel skel--header"></div>
+    <div class="skel skel--bar skel--bar-lg"></div>
+    <div class="skel skel--bar skel--bar-md"></div>
+    <div class="skel skel--block"></div>
+    <div class="skel skel--bar skel--bar-sm"></div>
+    <div class="skel skel--bar skel--bar-md"></div>
+  `;
+  wrap.appendChild(skel);
+}
+function removeDemoSkeleton() {
+  const skel = document.getElementById('demoSkeleton');
+  if (skel) skel.remove();
+  const spinner = document.getElementById('demoSpinner');
+  if (spinner) spinner.style.display = 'none';
+}
+
+/* ============================================================
+   ARIA DEMO STATUS ANNOUNCER
+   ============================================================ */
+function announceDemo(msg) {
+  const el = document.getElementById('demoStatusAnnouncer');
+  if (el) el.textContent = msg;
+}
+
+/* ============================================================
+   PANEL KEYBOARD NAVIGATION — j/k to navigate projects
+   ============================================================ */
+function initPanelKeyboard() {
+  document.addEventListener('keydown', e => {
+    const panel = document.getElementById('projectPanel');
+    if (!panel || panel.getAttribute('aria-hidden') !== 'false') return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'j' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      document.getElementById('panelNext')?.click();
+    } else if (e.key === 'k' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      document.getElementById('panelPrev')?.click();
+    }
+  });
+}
+
+/* ============================================================
+   MOBILE IFRAME HEIGHT — refresh on orientation change
+   ============================================================ */
+function initOrientationRefresh() {
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+      const wrap = document.getElementById('demoWrap');
+      const frame = document.getElementById('demoFrame');
+      if (!wrap || !frame || !frame.src || frame.src === 'about:blank') return;
+      // Force the iframe to re-report its height
+      frame.contentWindow?.postMessage({ type: 'requestHeight' }, '*');
+      // Also nudge the wrap so it doesn't stay at stale height
+      wrap.style.height = Math.min(window.innerHeight * 1.8, 900) + 'px';
+    }, 300);
+  });
+}
+
+/* ============================================================
    INIT
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1523,6 +1613,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollProgress();
   initActiveNav();
   initPanelEnhancements();
+  initBackToTop();
+  initCopyEmail();
+  initPanelKeyboard();
+  initOrientationRefresh();
 });
 
 /* ============================================================

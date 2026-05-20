@@ -2,31 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://finnlakin.com/</loc>
-    <lastmod>2026-05-18</lastmod>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/colophon.html</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://finnlakin.com/colophon</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/tearsheet.html</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://finnlakin.com/tearsheet</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/privacy.html</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://finnlakin.com/privacy</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/legal.html</loc>
-    <lastmod>2026-05-18</lastmod>
+    <loc>https://finnlakin.com/legal</loc>
+    <lastmod>2026-05-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>

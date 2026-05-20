@@ -9,6 +9,7 @@
   <meta name="robots" content="index, follow" />
 
   <!-- Open Graph / Social -->
+  <link rel="canonical" href="https://finn-lakin-portfolio.netlify.app/" />
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://finn-lakin-portfolio.netlify.app/" />
   <meta property="og:title"       content="Finn Lakin — Equity Research · Quantitative Methods · Financial Technology" />
@@ -20,6 +21,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:url"        content="https://finn-lakin-portfolio.netlify.app/" />
   <meta name="twitter:title"      content="Finn Lakin — Equity Research · Quantitative Methods · Financial Technology" />
   <meta name="twitter:description" content="Trilingual Economics &amp; Finance student. Bloomberg Trading Challenge team leader. Builder of quant research tools." />
   <meta name="twitter:image"      content="assets/og-image.png" />
@@ -75,6 +77,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <!-- JSON-LD — Person schema for richer search results -->
@@ -120,6 +123,19 @@
 </head>
 <body>
 
+  <!-- Skip to main content (keyboard / screen reader) -->
+  <a href="#hero" class="skip-link">Skip to main content</a>
+
+  <!-- ARIA live region — announces demo status changes to screen readers -->
+  <div id="demoStatusAnnouncer" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+  <!-- Back-to-top button -->
+  <button id="backToTop" class="back-to-top" aria-label="Back to top" hidden>
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M6 10V2M2 6l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
   <!-- Scroll progress indicator -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
@@ -145,33 +161,6 @@
     </button>
   </nav>
 
-  <style>
-    .nav__palette {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      padding: 0;
-      margin-left: 1rem;
-      background: none;
-      border: 1px solid transparent;
-      border-radius: 2px;
-      color: var(--text-2);
-      cursor: pointer;
-      transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
-    }
-    .nav__palette:hover {
-      color: var(--gold);
-      border-color: var(--border-2);
-      background: var(--gold-dim);
-    }
-    .nav__palette svg { transition: transform 0.4s var(--ease); }
-    .nav__palette:hover svg { transform: rotate(180deg); }
-    @media (max-width: 860px) {
-      .nav__palette { margin-left: auto; margin-right: 0.6rem; }
-    }
-  </style>
   <script>
     (function () {
       const KEY = 'fl-palette';
@@ -638,6 +627,10 @@
           <a href="mailto:lakin.finn@gmail.com" class="btn btn--gold">
             lakin.finn@gmail.com
           </a>
+          <button class="btn btn--ghost btn--copy-email" id="copyEmailBtn" aria-label="Copy email address">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 4V2.5A1.5 1.5 0 015.5 1h6A1.5 1.5 0 0113 2.5v6A1.5 1.5 0 0111.5 10H10" stroke="currentColor" stroke-width="1.3"/></svg>
+            <span id="copyEmailLbl">Copy email</span>
+          </button>
           <a href="tel:+447379056766" class="btn btn--ghost">
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5C2 3.1 3.1 2 4.5 2H5l1.5 3L5 6c.7 1.5 1.5 2.3 3 3l1-1.5L12 9v.5c0 1.4-1.1 2.5-2.5 2.5C5.7 12 2 8.3 2 4.5Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             +44 7379 056766
