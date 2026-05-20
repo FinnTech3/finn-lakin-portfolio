@@ -1492,6 +1492,298 @@ window.addEventListener('message', e => {
 });
 
 /* ============================================================
+   TOAST NOTIFICATION SYSTEM
+   ============================================================ */
+function showToast(message, icon) {
+  const container = document.getElementById('toastContainer');
+  if (!container) return;
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `
+    ${icon || '<svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
+    ${message}
+  `;
+  container.appendChild(t);
+  setTimeout(() => {
+    t.classList.add('toast--out');
+    t.addEventListener('animationend', () => t.remove(), { once: true });
+  }, 2000);
+}
+
+/* ============================================================
+   HERO TEXT SCRAMBLE
+   ============================================================ */
+function initHeroScramble() {
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$£%#@!';
+  const lines = document.querySelectorAll('.hero__name-line[data-scramble]');
+  lines.forEach((el, i) => {
+    const target = el.dataset.scramble;
+    const stop   = el.querySelector('.hero__name-stop');
+    const delay  = 280 + i * 180;   // stagger per line
+
+    setTimeout(() => {
+      let frame = 0;
+      const totalFrames = 18;
+      const interval = setInterval(() => {
+        const ratio = frame / totalFrames;
+        const revealed = Math.floor(ratio * target.length);
+        let text = '';
+        for (let c = 0; c < target.length; c++) {
+          if (c < revealed) {
+            text += target[c];
+          } else {
+            text += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+        }
+        // Preserve the "." span on the last line
+        if (stop) {
+          el.childNodes[0].textContent = text;
+        } else {
+          el.textContent = text;
+        }
+        frame++;
+        if (frame > totalFrames) {
+          clearInterval(interval);
+          if (stop) {
+            el.childNodes[0].textContent = target;
+          } else {
+            el.textContent = target;
+          }
+        }
+      }, 40);
+    }, delay);
+  });
+}
+
+/* ============================================================
+   3D CARD TILT — project cards
+   ============================================================ */
+function initCardTilt() {
+  const MAX_TILT = 8; // degrees
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top  + rect.height / 2;
+      const rx = ((e.clientY - cy) / (rect.height / 2)) * -MAX_TILT;
+      const ry = ((e.clientX - cx) / (rect.width  / 2)) *  MAX_TILT;
+      card.style.transform =
+        `perspective(800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
+/* ============================================================
+   BLOOMBERG TICKER — duplicate content for seamless loop
+   ============================================================ */
+function initTicker() {
+  const track = document.getElementById('tickerTrack');
+  if (!track) return;
+  // Clone all children to create seamless infinite scroll
+  const clone = track.cloneNode(true);
+  track.parentElement.appendChild(clone);
+}
+
+/* ============================================================
+   FLOATING CONTACT CTA
+   ============================================================ */
+function initFloatContact() {
+  const btn     = document.getElementById('floatContact');
+  const contact = document.getElementById('contact');
+  if (!btn) return;
+
+  const heroH = document.getElementById('hero')?.offsetHeight || window.innerHeight;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      // Hide when contact section is visible
+      if (e.target === contact) {
+        btn.classList.toggle('visible', !e.isIntersecting);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  if (contact) io.observe(contact);
+
+  // Show only after scrolling past hero
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > heroH * 0.7) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+}
+
+/* ============================================================
+   COPY PHONE BUTTON
+   ============================================================ */
+function initCopyPhone() {
+  const btn = document.getElementById('copyPhoneBtn');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('+447379056766');
+      showToast('Phone number copied');
+    } catch (e) {}
+  });
+}
+
+/* ============================================================
+   COMMAND PALETTE
+   ============================================================ */
+const CMD_ITEMS = [
+  { group: 'Navigate',  label: 'About',       hint: 'Jump to About section',      icon: 'hash',    action: () => scrollToSection('#about') },
+  { group: 'Navigate',  label: 'Timeline',    hint: 'Education & work history',   icon: 'hash',    action: () => scrollToSection('#timeline') },
+  { group: 'Navigate',  label: 'Projects',    hint: 'SQL Analyser · Strategy',    icon: 'hash',    action: () => scrollToSection('#projects') },
+  { group: 'Navigate',  label: 'Skills',      hint: 'Technical & language skills', icon: 'hash',   action: () => scrollToSection('#skills') },
+  { group: 'Navigate',  label: 'Contact',     hint: 'Get in touch',               icon: 'hash',    action: () => scrollToSection('#contact') },
+  { group: 'Projects',  label: 'SQL Finance Analyser', hint: 'Open project panel', icon: 'proj',  action: () => { closePalette(); setTimeout(() => openProject('finance'), 80); } },
+  { group: 'Projects',  label: "Finn's Strategy",      hint: 'Open project panel', icon: 'proj',  action: () => { closePalette(); setTimeout(() => openProject('strategy'), 80); } },
+  { group: 'Actions',   label: 'Download CV', hint: 'finn-lakin-cv.pdf',          icon: 'dl',      action: () => { const a = document.createElement('a'); a.href = 'assets/finn-lakin-cv.pdf'; a.download = 'finn-lakin-cv.pdf'; a.click(); showToast('CV downloading…'); } },
+  { group: 'Actions',   label: 'Preview CV',  hint: 'Open CV preview modal',      icon: 'eye',     action: () => { closePalette(); setTimeout(() => document.getElementById('previewCvBtn')?.click(), 80); } },
+  { group: 'Actions',   label: 'Copy email',  hint: 'lakin.finn@gmail.com',       icon: 'copy',    action: () => navigator.clipboard.writeText('lakin.finn@gmail.com').then(() => showToast('Email copied')) },
+  { group: 'Actions',   label: 'Copy phone',  hint: '+44 7379 056766',            icon: 'copy',    action: () => navigator.clipboard.writeText('+447379056766').then(() => showToast('Phone copied')) },
+  { group: 'Links',     label: 'LinkedIn',    hint: 'linkedin.com/in/finnlakin',  icon: 'ext',     action: () => window.open('https://www.linkedin.com/in/finnlakin/', '_blank', 'noopener') },
+  { group: 'Links',     label: 'GitHub',      hint: 'github.com/FinnTech3',       icon: 'ext',     action: () => window.open('https://github.com/FinnTech3', '_blank', 'noopener') },
+  { group: 'Links',     label: 'Tearsheet',   hint: 'One-page summary PDF',       icon: 'ext',     action: () => window.open('tearsheet.html', '_blank', 'noopener') },
+  { group: 'Actions',   label: 'Toggle theme','hint': 'Brass on Black ↔ FT Pink', icon: 'theme',   action: () => { document.getElementById('navPalette')?.click(); showToast('Theme toggled'); } },
+];
+
+const CMD_ICONS = {
+  hash:  `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 5h9M2 8h9M5 2l-1.5 9M9.5 2L8 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+  proj:  `<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M4 5h5M4 8h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`,
+  dl:    `<svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M6 1v7M3 5l3 3 3-3M2 10h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  eye:   `<svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M1 6c.5-2 2.5-4 5-4s4.5 2 5 4c-.5 2-2.5 4-5 4S1.5 8 1 6z" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="6" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg>`,
+  copy:  `<svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 4V2.5A1.5 1.5 0 015.5 1h6A1.5 1.5 0 0113 2.5v6A1.5 1.5 0 0111.5 10H10" stroke="currentColor" stroke-width="1.3"/></svg>`,
+  ext:   `<svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  theme: `<svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.6" stroke="currentColor" stroke-width="1.1"/><path d="M7 1.4 A 5.6 5.6 0 0 1 7 12.6 Z" fill="currentColor"/></svg>`,
+};
+
+function scrollToSection(hash) {
+  closePalette();
+  const el = document.querySelector(hash);
+  if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+}
+
+let _cmdOpen = false;
+let _cmdFocus = -1;
+let _cmdFiltered = [];
+
+function openPalette() {
+  const el = document.getElementById('cmdPalette');
+  if (!el) return;
+  _cmdOpen = true;
+  _cmdFocus = -1;
+  el.classList.add('open');
+  el.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  const input = document.getElementById('cmdInput');
+  if (input) { input.value = ''; input.focus(); }
+  renderCmdResults('');
+}
+
+function closePalette() {
+  const el = document.getElementById('cmdPalette');
+  if (!el) return;
+  _cmdOpen = false;
+  el.classList.remove('open');
+  el.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function renderCmdResults(q) {
+  const container = document.getElementById('cmdResults');
+  if (!container) return;
+  const lq = q.toLowerCase().trim();
+  _cmdFiltered = lq
+    ? CMD_ITEMS.filter(i =>
+        i.label.toLowerCase().includes(lq) || i.hint.toLowerCase().includes(lq) || i.group.toLowerCase().includes(lq)
+      )
+    : CMD_ITEMS;
+  _cmdFocus = -1;
+
+  if (!_cmdFiltered.length) {
+    container.innerHTML = `<div class="cmd-no-results">No results for "${q}"</div>`;
+    return;
+  }
+
+  // Group items
+  const groups = {};
+  _cmdFiltered.forEach(item => {
+    if (!groups[item.group]) groups[item.group] = [];
+    groups[item.group].push(item);
+  });
+
+  container.innerHTML = Object.entries(groups).map(([g, items]) => `
+    <div class="cmd-palette__group-label">${g}</div>
+    ${items.map((item, idx) => {
+      const globalIdx = _cmdFiltered.indexOf(item);
+      return `
+        <div class="cmd-item" role="option" tabindex="-1" data-idx="${globalIdx}">
+          <div class="cmd-item__icon">${CMD_ICONS[item.icon] || ''}</div>
+          <div class="cmd-item__body">
+            <div class="cmd-item__label">${item.label}</div>
+            <div class="cmd-item__hint">${item.hint}</div>
+          </div>
+        </div>
+      `;
+    }).join('')}
+  `).join('');
+
+  container.querySelectorAll('.cmd-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.idx, 10);
+      if (_cmdFiltered[idx]) _cmdFiltered[idx].action();
+      if (!['Copy email','Copy phone','Toggle theme'].includes(_cmdFiltered[idx]?.label)) closePalette();
+    });
+  });
+}
+
+function moveCmdFocus(dir) {
+  const items = document.querySelectorAll('#cmdResults .cmd-item');
+  if (!items.length) return;
+  items[_cmdFocus]?.classList.remove('is-focused');
+  _cmdFocus = (_cmdFocus + dir + items.length) % items.length;
+  const next = items[_cmdFocus];
+  next?.classList.add('is-focused');
+  next?.scrollIntoView({ block: 'nearest' });
+}
+
+function initCommandPalette() {
+  // Open with Cmd+K / Ctrl+K
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      _cmdOpen ? closePalette() : openPalette();
+      return;
+    }
+    if (!_cmdOpen) return;
+    if (e.key === 'Escape') { closePalette(); return; }
+    if (e.key === 'ArrowDown') { e.preventDefault(); moveCmdFocus(1); return; }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); moveCmdFocus(-1); return; }
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (_cmdFocus >= 0 && _cmdFiltered[_cmdFocus]) {
+        _cmdFiltered[_cmdFocus].action();
+        if (!['Copy email','Copy phone','Toggle theme'].includes(_cmdFiltered[_cmdFocus]?.label)) closePalette();
+      }
+    }
+  });
+
+  // Close on backdrop click
+  document.getElementById('cmdBackdrop')?.addEventListener('click', closePalette);
+
+  // Filter on input
+  document.getElementById('cmdInput')?.addEventListener('input', e => {
+    renderCmdResults(e.target.value);
+  });
+}
+
+/* ============================================================
    BACK TO TOP BUTTON
    ============================================================ */
 function initBackToTop() {
@@ -1512,17 +1804,11 @@ function initBackToTop() {
    ============================================================ */
 function initCopyEmail() {
   const btn = document.getElementById('copyEmailBtn');
-  const lbl = document.getElementById('copyEmailLbl');
-  if (!btn || !lbl) return;
+  if (!btn) return;
   btn.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText('lakin.finn@gmail.com');
-      lbl.textContent = '✓ Copied';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        lbl.textContent = 'Copy email';
-        btn.classList.remove('copied');
-      }, 2000);
+      showToast('Email copied', 'copy');
     } catch (e) {}
   });
 }
@@ -1617,6 +1903,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initCopyEmail();
   initPanelKeyboard();
   initOrientationRefresh();
+  initHeroScramble();
+  initCardTilt();
+  initTicker();
+  initFloatContact();
+  initCopyPhone();
+  initCommandPalette();
 });
 
 /* ============================================================
