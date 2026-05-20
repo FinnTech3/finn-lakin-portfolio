@@ -13,10 +13,26 @@
   to   = "/assets/finn-lakin-cv.pdf"
   status = 301
 
+# Clean URLs — strip .html extension
 [[redirects]]
   from = "/tearsheet"
   to   = "/tearsheet.html"
-  status = 301
+  status = 200
+
+[[redirects]]
+  from = "/privacy"
+  to   = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/legal"
+  to   = "/legal.html"
+  status = 200
+
+[[redirects]]
+  from = "/colophon"
+  to   = "/colophon.html"
+  status = 200
 
 # 404 fallback
 [[redirects]]
