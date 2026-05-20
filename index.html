@@ -176,7 +176,9 @@
         }
         try { localStorage.setItem(KEY, pal); } catch (e) {}
       };
-      apply(localStorage.getItem(KEY) === 'ft' ? 'ft' : 'dark');
+      const saved = localStorage.getItem(KEY);
+      const sysLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      apply(saved ? saved : (sysLight ? 'ft' : 'dark'));
       btn?.addEventListener('click', () => {
         apply(html.getAttribute('data-palette') === 'ft' ? 'dark' : 'ft');
       });
@@ -205,8 +207,8 @@
         Oxford Brookes &nbsp;·&nbsp; ex-Université Dauphine &nbsp;·&nbsp; Class of 2027
       </span>
       <h1 class="hero__name">
-        <span class="hero__name-line" data-delay="0">Finn</span>
-        <span class="hero__name-line" data-delay="1">Lakin<span class="hero__name-stop">.</span></span>
+        <span class="hero__name-line" data-delay="0" data-scramble="Finn">Finn</span>
+        <span class="hero__name-line" data-delay="1" data-scramble="Lakin">Lakin<span class="hero__name-stop">.</span></span>
       </h1>
       <div class="hero__rule" data-delay="2"></div>
       <p class="hero__sub" data-delay="3">
@@ -635,6 +637,10 @@
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5C2 3.1 3.1 2 4.5 2H5l1.5 3L5 6c.7 1.5 1.5 2.3 3 3l1-1.5L12 9v.5c0 1.4-1.1 2.5-2.5 2.5C5.7 12 2 8.3 2 4.5Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
             +44 7379 056766
           </a>
+          <button class="btn btn--ghost btn--copy-email" id="copyPhoneBtn" aria-label="Copy phone number">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="4" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M4 4V2.5A1.5 1.5 0 015.5 1h6A1.5 1.5 0 0113 2.5v6A1.5 1.5 0 0111.5 10H10" stroke="currentColor" stroke-width="1.3"/></svg>
+            Copy
+          </button>
           <a href="https://www.linkedin.com/in/finnlakin/" target="_blank" rel="noopener" class="btn btn--ghost">
             LinkedIn
             <svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -725,6 +731,66 @@
     </div>
   </div>
   <div id="panelBackdrop" class="panel-backdrop"></div>
+
+  <!-- BLOOMBERG TICKER STRIP -->
+  <div class="ticker-strip" aria-hidden="true" id="tickerStrip">
+    <div class="ticker-strip__track" id="tickerTrack">
+      <span class="ticker-item"><span class="ticker-val ticker-pos">+16.4%</span> Bloomberg Trading Challenge</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val">2.84</span> Sharpe Ratio</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val ticker-pos">86%</span> Win Rate</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val ticker-pos">+156%</span> 3-Month Paper Return</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val">10,240</span> Students · 46 Countries</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val">3</span> Languages — EN · FR · ES</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val">3.6 / 4.0</span> GPA · First-Class Track</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item ticker-avail"><span class="ticker-dot"></span> Available · Summer 2026 Internships</span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item"><span class="ticker-val">4yr+</span> Energy Market Research</span>
+      <span class="ticker-sep">·</span>
+    </div>
+  </div>
+
+  <!-- FLOATING CONTACT CTA -->
+  <a href="#contact" class="float-contact" id="floatContact" aria-label="Get in touch">
+    <svg width="13" height="11" viewBox="0 0 13 11" fill="none" aria-hidden="true">
+      <rect x="0.65" y="0.65" width="11.7" height="9.7" rx="1.35" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M1 2l5.5 4L12 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <span>Get in touch</span>
+  </a>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- COMMAND PALETTE -->
+  <div id="cmdPalette" class="cmd-palette" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="cmd-palette__backdrop" id="cmdBackdrop"></div>
+    <div class="cmd-palette__panel">
+      <div class="cmd-palette__search-wrap">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" class="cmd-palette__search-icon">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M10 10l3.5 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <input id="cmdInput" type="text" class="cmd-palette__input" placeholder="Type a command or search…" autocomplete="off" spellcheck="false" />
+        <kbd class="cmd-palette__esc-hint">Esc</kbd>
+      </div>
+      <div class="cmd-palette__results" id="cmdResults" role="listbox"></div>
+      <div class="cmd-palette__footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> select</span>
+        <span><kbd>Esc</kbd> close</span>
+        <span class="cmd-palette__footer-hint">
+          <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd> to open anywhere
+        </span>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
