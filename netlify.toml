@@ -32,6 +32,8 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy        = "strict-origin-when-cross-origin"
     Permissions-Policy     = "camera=(), microphone=(), geolocation=()"
+    # Allow jsDelivr CDN (Chart.js + QR code lib) and Google Fonts
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; frame-src 'self' https://finance-analysis-opml.onrender.com; connect-src 'self' https://finance-analysis-opml.onrender.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self';"
 
 # Cache static assets aggressively
 [[headers]]

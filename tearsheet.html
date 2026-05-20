@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
   <style>
     :root {
       --bg:     #FFF1E5;
@@ -335,30 +336,51 @@
       text-transform: none;
     }
 
-    /* QR placeholder block — square, dotted, so user can drop a real QR in */
+    /* QR code block — real code rendered by qrcode.js */
     .qr {
       width: 22mm; height: 22mm;
-      background:
-        repeating-linear-gradient(45deg, rgba(14,26,43,0.10) 0 1.5px, transparent 1.5px 3px);
       border: 1px solid var(--rule);
-      position: relative;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
     }
-    .qr::after {
-      content: 'QR — finnlakin.com';
-      position: absolute;
-      bottom: -5mm; left: 50%;
-      transform: translateX(-50%);
+    .qr canvas,
+    .qr img { width: 100% !important; height: 100% !important; display: block; }
+
+    /* Print button — hidden when printing */
+    .print-btn {
+      position: fixed;
+      bottom: 20px; right: 20px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 7pt;
-      letter-spacing: 0.10em;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--ink-3);
-      white-space: nowrap;
+      color: var(--ink-2);
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 8px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s, color 0.2s;
+      z-index: 10;
     }
+    .print-btn:hover { color: var(--ink); border-color: var(--ink-2); }
+    @media print { .print-btn { display: none; } }
   </style>
 </head>
 <body>
   <a href="index.html" class="home-link">← Back to site</a>
+  <button class="print-btn" onclick="window.print()">
+    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 4V1h6v3M3 8H1V5h10v3h-2M3 8v3h6V8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Print / Save PDF
+  </button>
 
   <section class="sheet">
 
@@ -488,5 +510,20 @@
       <span>finnlakin.com · v1.0 · May 2026</span>
     </footer>
   </section>
+  <script>
+    // Generate real QR code pointing to portfolio
+    (function () {
+      var container = document.querySelector('.qr');
+      if (!container || typeof QRCode === 'undefined') return;
+      new QRCode(container, {
+        text: 'https://finn-lakin-portfolio.netlify.app/',
+        width: 83,   // ~22mm at 96dpi
+        height: 83,
+        colorDark: '#0E1A2B',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    })();
+  </script>
 </body>
 </html>

@@ -927,7 +927,7 @@ function retryDemoLoad() {
     if (dot) { dot.style.background = ''; dot.style.animation = ''; }
   }
   const ctrl    = new AbortController();
-  const timeout = setTimeout(() => ctrl.abort(), 4000);
+  const timeout = setTimeout(() => ctrl.abort(), 60000);
   fetch(DEMO_URL + '/api/summary', { mode: 'no-cors', signal: ctrl.signal })
     .then(() => {
       clearTimeout(timeout);
@@ -1276,7 +1276,7 @@ function initStrategyChart() {
       },
       scales: {
         x: {
-          grid:   { color: '#181928', drawBorder: false },
+          grid:   { color: '#181928' },
           border: { color: '#181928' },
           ticks:  {
             color: '#3d4060',
@@ -1286,7 +1286,7 @@ function initStrategyChart() {
           }
         },
         y: {
-          grid:   { color: '#181928', drawBorder: false },
+          grid:   { color: '#181928' },
           border: { color: '#181928' },
           ticks:  {
             color: '#3d4060',
@@ -1514,7 +1514,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initAnimations();
   initNav();
   initMobileMenu();
-  initActiveLinks();
   initSmoothScroll();
   initHeroParallax();
   initCvModal();
