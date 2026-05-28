@@ -71,9 +71,19 @@
    PALETTE — per-palette tweaks that can't cascade from tokens alone
    ============================================================ */
 
-/* Smooth swap */
-html, body { transition: background-color 0.4s ease, color 0.4s ease; }
-body * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+/* Smooth palette swap — scoped to the moment of switching only.
+   A permanent `body *` transition taxed every hover/interaction with a 300ms
+   colour lag and forced needless style recalcs. Now the cross-fade is applied
+   only while the .palette-swapping class is present (~480ms during a toggle),
+   so day-to-day interaction stays instant. */
+html.palette-swapping,
+html.palette-swapping body,
+html.palette-swapping body * {
+  transition: background-color 0.42s var(--ease),
+              border-color 0.42s var(--ease),
+              color 0.42s var(--ease),
+              fill 0.42s var(--ease) !important;
+}
 
 /* Brass on Black (default) — corrections */
 .hero__glow {
@@ -132,6 +142,9 @@ body * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0
 
 html {
   scroll-behavior: smooth;
+  /* Offset every anchor jump (nav links, command palette, native #hash) so the
+     target heading lands below the fixed nav instead of hiding behind it. */
+  scroll-padding-top: 5.5rem;
   font-size: 16px;
 }
 
@@ -499,7 +512,7 @@ ul { list-style: none; }
 
 .hero__scroll-hint {
   position: absolute;
-  bottom: 2.5rem;
+  bottom: calc(32px + 1.8rem);   /* clear the fixed Bloomberg ticker strip */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1478,25 +1491,37 @@ ul { list-style: none; }
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.85rem 1.6rem;
+  min-height: 44px;            /* WCAG / Fitts — comfortable touch target */
   border-radius: 2px;
-  transition: all 0.22s var(--ease);
+  cursor: pointer;             /* affordance on <button> elements too */
+  transition: background-color 0.22s var(--ease), border-color 0.22s var(--ease),
+              color 0.22s var(--ease), transform 0.12s var(--ease),
+              box-shadow 0.22s var(--ease);
   white-space: nowrap;
 }
 
+/* PRIMARY — the single most important action. Filled so it is unmistakably the
+   visual anchor among the secondary ghost buttons (Von Restorff). Text uses the
+   page background colour, which keeps AA contrast in BOTH palettes
+   (near-black on brass; cream on burgundy). */
 .btn--gold {
-  background: var(--gold-dim);
-  border: 1px solid rgba(201, 165, 83, 0.35);
-  color: var(--gold);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--bg);
+  font-weight: 600;
 }
 .btn--gold:hover {
-  background: rgba(201, 165, 83, 0.2);
-  border-color: var(--gold);
+  background: var(--gold-soft);
+  border-color: var(--gold-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px -8px var(--gold-glow);
 }
 
 .btn--ghost {
@@ -1508,7 +1533,12 @@ ul { list-style: none; }
   border-color: var(--text-3);
   color: var(--text);
   background: var(--surface);
+  transform: translateY(-1px);
 }
+
+/* Tactile press feedback on every button — placed last so it wins over the
+   hover lift when the element is simultaneously hovered and active. */
+.btn:active { transform: translateY(1px); box-shadow: none; }
 
 /* ============================================================
    FOOTER
@@ -1932,6 +1962,9 @@ ul { list-style: none; }
   #pageTransition                       { display: none; }
   #cursorTrail                          { display: none; }
   .nav__indicator                       { transition: none; }
+  html                                  { scroll-behavior: auto; }
+  .btn:hover, .btn:active               { transform: none; }
+  .hero__cursor                         { animation: none; opacity: 1; }
 }
 
 /* ============================================================

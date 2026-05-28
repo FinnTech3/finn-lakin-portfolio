@@ -167,7 +167,14 @@
       const KEY = 'fl-palette';
       const html = document.documentElement;
       const btn  = document.getElementById('navPalette');
-      const apply = (pal) => {
+      const apply = (pal, animate) => {
+        // Cross-fade only on an explicit toggle, never on first paint (avoids a
+        // flash-of-transition on load).
+        if (animate) {
+          html.classList.add('palette-swapping');
+          clearTimeout(window._palTimer);
+          window._palTimer = setTimeout(() => html.classList.remove('palette-swapping'), 500);
+        }
         if (pal === 'ft') {
           html.setAttribute('data-palette', 'ft');
           if (btn) btn.title = 'Switch to Brass on Black (dark)';
@@ -179,9 +186,9 @@
       };
       const saved = localStorage.getItem(KEY);
       const sysLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-      apply(saved ? saved : (sysLight ? 'ft' : 'dark'));
+      apply(saved ? saved : (sysLight ? 'ft' : 'dark'), false);
       btn?.addEventListener('click', () => {
-        apply(html.getAttribute('data-palette') === 'ft' ? 'dark' : 'ft');
+        apply(html.getAttribute('data-palette') === 'ft' ? 'dark' : 'ft', true);
       });
     })();
   </script>
