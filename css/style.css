@@ -3540,7 +3540,7 @@ ul { list-style: none; }
   font-size: 0.58rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-4);
+  color: var(--text-3);   /* AA-legible (was --text-4 ≈ 2.4:1) */
   padding: 0.7rem 1rem 0.3rem;
 }
 .cmd-item {
@@ -3604,7 +3604,7 @@ ul { list-style: none; }
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.08em;
-  color: var(--text-4);
+  color: var(--text-3);   /* AA-legible (was --text-4) */
 }
 .cmd-palette__footer kbd {
   display: inline-block;
@@ -3621,7 +3621,7 @@ ul { list-style: none; }
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.10em;
-  color: var(--text-4);
+  color: var(--text-3);   /* AA-legible (was --text-4) */
   text-transform: uppercase;
 }
 
