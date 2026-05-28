@@ -1522,6 +1522,17 @@ function showToast(message, icon) {
 function initHeroScramble() {
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$£%#@!';
   const lines = document.querySelectorAll('.hero__name-line[data-scramble]');
+
+  // Respect reduced-motion: resolve names instantly, skip the scramble.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    lines.forEach(el => {
+      const stop = el.querySelector('.hero__name-stop');
+      if (stop) el.childNodes[0].textContent = el.dataset.scramble;
+      else el.textContent = el.dataset.scramble;
+    });
+    return;
+  }
+
   lines.forEach((el, i) => {
     const target = el.dataset.scramble;
     const stop   = el.querySelector('.hero__name-stop');
