@@ -142,13 +142,14 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <a href="#hero" class="nav__logo">FL</a>
-    <ul class="nav__links">
+    <ul class="nav__links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#timeline">Timeline</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#testimonials">Endorsements</a></li>
       <li><a href="#contact">Contact</a></li>
+      <span class="nav__indicator" id="navIndicator" aria-hidden="true"></span>
     </ul>
     <button class="nav__palette" id="navPalette" aria-label="Switch palette" title="Switch to FT Pink">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -212,7 +213,7 @@
       </h1>
       <div class="hero__rule" data-delay="2"></div>
       <p class="hero__sub" data-delay="3">
-        Equity Research &nbsp;&nbsp;·&nbsp;&nbsp; Quantitative Methods &nbsp;&nbsp;·&nbsp;&nbsp; Financial Technology
+        Equity Research &nbsp;&nbsp;·&nbsp;&nbsp; Quantitative Methods &nbsp;&nbsp;·&nbsp;&nbsp; Financial Technology<span class="hero__cursor" aria-hidden="true">|</span>
       </p>
 
       <p class="hero__lead" data-delay="4">
@@ -791,6 +792,12 @@
       </div>
     </div>
   </div>
+
+  <!-- PAGE TRANSITION BAR -->
+  <div id="pageTransition" aria-hidden="true"></div>
+
+  <!-- CURSOR TRAIL -->
+  <canvas id="cursorTrail" aria-hidden="true"></canvas>
 
   <script src="js/main.js"></script>
 </body>

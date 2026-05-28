@@ -1723,6 +1723,218 @@ ul { list-style: none; }
 }
 
 /* ============================================================
+   ANIMATION SUITE — 10 animations
+   ============================================================ */
+
+/* ── 1. NAV UNDERLINE MAGNET ───────────────────────────────── */
+.nav__links {
+  position: relative;
+}
+.nav__indicator {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  height: 1px;
+  width: 0;
+  background: var(--gold);
+  transition: left 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              width 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.15s;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 1px;
+}
+
+/* ── 2. CURSOR TRAIL ───────────────────────────────────────── */
+#cursorTrail {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── 3. TIMELINE DRAW-IN ───────────────────────────────────── */
+.timeline__rail {
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+.timeline.is-visible .timeline__rail {
+  transform: scaleY(1);
+}
+
+/* Fast parent + stagger children */
+.timeline[data-animate] {
+  transition: opacity 0.2s var(--ease), transform 0.35s var(--ease);
+}
+.timeline:not(.is-visible) .timeline-entry {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.timeline.is-visible .timeline-entry {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.55s var(--ease),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.timeline.is-visible .timeline-entry:nth-child(3)  { transition-delay: 0.28s; }
+.timeline.is-visible .timeline-entry:nth-child(4)  { transition-delay: 0.42s; }
+.timeline.is-visible .timeline-entry:nth-child(5)  { transition-delay: 0.56s; }
+.timeline.is-visible .timeline-entry:nth-child(6)  { transition-delay: 0.70s; }
+.timeline.is-visible .timeline-entry:nth-child(7)  { transition-delay: 0.84s; }
+.timeline.is-visible .timeline-entry:nth-child(8)  { transition-delay: 0.98s; }
+
+/* "NOW" marker draws in after rail */
+.timeline__rail-marker--now {
+  opacity: 0;
+  transition: opacity 0.5s var(--ease) 1.0s;
+}
+.timeline.is-visible .timeline__rail-marker--now {
+  opacity: 1;
+}
+
+/* ── 4. HERO CURSOR BLINK ──────────────────────────────────── */
+.hero__cursor {
+  display: inline-block;
+  margin-left: 1px;
+  color: var(--gold);
+  font-weight: 300;
+  animation: cursor-blink 1.05s step-start infinite;
+  will-change: opacity;
+  vertical-align: baseline;
+}
+@keyframes cursor-blink {
+  0%, 48%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* ── 5. SKILL TAG STAGGER POP-IN ───────────────────────────── */
+.skills__group[data-animate] {
+  transition: opacity 0.25s var(--ease), transform 0.4s var(--ease);
+}
+.skills__group:not(.is-visible) .skill-tag {
+  opacity: 0;
+}
+.skills__group.is-visible .skill-tag {
+  animation: tag-pop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes tag-pop {
+  from { opacity: 0; transform: scale(0.78) translateY(4px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.skills__group.is-visible .skill-tag:nth-child(1)  { animation-delay: 0.30s; }
+.skills__group.is-visible .skill-tag:nth-child(2)  { animation-delay: 0.37s; }
+.skills__group.is-visible .skill-tag:nth-child(3)  { animation-delay: 0.44s; }
+.skills__group.is-visible .skill-tag:nth-child(4)  { animation-delay: 0.51s; }
+.skills__group.is-visible .skill-tag:nth-child(5)  { animation-delay: 0.58s; }
+.skills__group.is-visible .skill-tag:nth-child(6)  { animation-delay: 0.65s; }
+.skills__group.is-visible .skill-tag:nth-child(7)  { animation-delay: 0.72s; }
+.skills__group.is-visible .skill-tag:nth-child(8)  { animation-delay: 0.79s; }
+.skills__group.is-visible .skill-tag:nth-child(9)  { animation-delay: 0.86s; }
+.skills__group.is-visible .skill-tag:nth-child(10) { animation-delay: 0.93s; }
+
+/* ── 6. PAGE TRANSITION SWEEP ──────────────────────────────── */
+#pageTransition {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg,
+    var(--gold) 0%,
+    rgba(182,136,74,0.6) 60%,
+    transparent 100%);
+  z-index: 10000;
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: 0 1px 1px 0;
+  box-shadow: 0 0 8px rgba(182,136,74,0.5);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.15s;
+}
+#pageTransition.pt-run {
+  opacity: 1;
+  transform: scaleX(1);
+}
+#pageTransition.pt-fade {
+  opacity: 0;
+  transform: scaleX(1);
+  transition: opacity 0.35s 0.05s;
+}
+
+/* ── 7. CHART DRAW-IN ──────────────────────────────────────── */
+.panel-chart-wrap,
+.rr-chart-wrap {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.panel-chart-wrap.chart-drawn,
+.rr-chart-wrap.chart-drawn {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* ── 8. PANEL CONTENT STAGGER ──────────────────────────────── */
+.project-panel__content.content--visible .panel-hero__eyebrow {
+  animation: fadeUp 0.48s var(--ease) 0.04s both;
+}
+.project-panel__content.content--visible .panel-hero__num {
+  animation: fadeUp 0.48s var(--ease) 0.09s both;
+}
+.project-panel__content.content--visible .panel-hero__cat {
+  animation: fadeUp 0.48s var(--ease) 0.12s both;
+}
+.project-panel__content.content--visible .panel-hero__title {
+  animation: fadeUp 0.52s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+}
+.project-panel__content.content--visible .panel-hero__sub {
+  animation: fadeUp 0.48s var(--ease) 0.23s both;
+}
+.project-panel__content.content--visible .panel-hero__tags {
+  animation: fadeUp 0.45s var(--ease) 0.29s both;
+}
+.project-panel__content.content--visible .panel-hero__cta {
+  animation: fadeUp 0.45s var(--ease) 0.34s both;
+}
+.project-panel__content.content--visible .panel-tabs {
+  animation: fadeUp 0.45s var(--ease) 0.40s both;
+}
+.project-panel__content.content--visible .panel-tab-body {
+  animation: fadeUp 0.4s var(--ease) 0.47s both;
+}
+
+/* ── 9. SECTION REVEAL UPGRADE — testimonial cards already stagger
+        via data-delay-animate="0.05" and data-delay-animate="0.15"
+        so no additional CSS needed here. The timeline entries and
+        skill tags are the new additions. ───────────────────────── */
+
+/* ── 10. PREFERS-REDUCED-MOTION — kill all custom animations ─ */
+@media (prefers-reduced-motion: reduce) {
+  .hero__cursor                         { animation: none; opacity: 1; }
+  .skills__group.is-visible .skill-tag  { animation: none; opacity: 1; transform: none; }
+  .skills__group:not(.is-visible) .skill-tag { opacity: 1; }
+  .timeline__rail                       { transition: none; transform: scaleY(1); }
+  .timeline:not(.is-visible) .timeline-entry { opacity: 1; transform: none; }
+  .timeline.is-visible .timeline-entry  { transition: none; }
+  .timeline__rail-marker--now           { opacity: 1; transition: none; }
+  .panel-chart-wrap                     { clip-path: none !important; transition: none; }
+  .project-panel__content.content--visible .panel-hero__eyebrow,
+  .project-panel__content.content--visible .panel-hero__num,
+  .project-panel__content.content--visible .panel-hero__cat,
+  .project-panel__content.content--visible .panel-hero__title,
+  .project-panel__content.content--visible .panel-hero__sub,
+  .project-panel__content.content--visible .panel-hero__tags,
+  .project-panel__content.content--visible .panel-hero__cta,
+  .project-panel__content.content--visible .panel-tabs,
+  .project-panel__content.content--visible .panel-tab-body
+                                        { animation: none; opacity: 1; transform: none; }
+  #pageTransition                       { display: none; }
+  #cursorTrail                          { display: none; }
+  .nav__indicator                       { transition: none; }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 860px) {

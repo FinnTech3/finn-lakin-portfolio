@@ -1280,9 +1280,12 @@ function initStrategyChart() {
           }
         }
       },
-      animation: { duration: 700, easing: 'easeOutQuart' }
+      animation: { duration: 900, easing: 'easeOutQuart' }
     }
   });
+
+  // ── Chart draw-in reveal ──────────────────────────────────────
+  triggerChartDrawIn('strategyChart');
 
   // ── Range selector ────────────────────────────────────────────
   const allPort   = [...portData];
@@ -1361,7 +1364,7 @@ function initReportCharts() {
       indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
-      animation: { duration: 900, easing: 'easeOutQuart' },
+      animation: { duration: 1000, easing: 'easeOutQuart' },
       plugins: {
         legend: { display: false },
         tooltip: {
@@ -1398,6 +1401,9 @@ function initReportCharts() {
       },
     },
   });
+
+  // ── Chart draw-in reveal ──────────────────────────────────────
+  triggerChartDrawIn('stratPerfChart');
 }
 
 /* ============================================================
@@ -1885,6 +1891,156 @@ function initOrientationRefresh() {
 /* ============================================================
    INIT
    ============================================================ */
+/* ============================================================
+   NAV UNDERLINE MAGNET
+   ============================================================ */
+function initNavMagnet() {
+  if (window.matchMedia('(max-width: 860px)').matches) return;
+  const ul  = document.getElementById('navLinks');
+  const ind = document.getElementById('navIndicator');
+  if (!ul || !ind) return;
+
+  const links = ul.querySelectorAll('a');
+
+  function position(link) {
+    const ulRect = ul.getBoundingClientRect();
+    const lr     = link.getBoundingClientRect();
+    ind.style.left    = (lr.left - ulRect.left) + 'px';
+    ind.style.width   = lr.width + 'px';
+    ind.style.opacity = '1';
+  }
+
+  links.forEach(link => {
+    link.addEventListener('mouseenter', () => position(link));
+  });
+
+  ul.addEventListener('mouseleave', () => {
+    ind.style.opacity = '0';
+  });
+}
+
+/* ============================================================
+   GOLD CURSOR TRAIL
+   ============================================================ */
+function initCursorTrail() {
+  if (window.matchMedia('(hover: none)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const canvas = document.getElementById('cursorTrail');
+  if (!canvas) return;
+
+  let W = window.innerWidth, H = window.innerHeight;
+  canvas.width  = W;
+  canvas.height = H;
+  const ctx = canvas.getContext('2d');
+
+  let mx = -200, my = -200;
+  let lx = -200, ly = -200;
+  let active = false;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    active = true;
+  });
+
+  document.addEventListener('mouseleave', () => { active = false; });
+
+  window.addEventListener('resize', () => {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width  = W;
+    canvas.height = H;
+  });
+
+  const GOLD_RING = 'rgba(182,136,74,';
+  const LERP_SPD  = 0.095;
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    if (active) {
+      lx += (mx - lx) * LERP_SPD;
+      ly += (my - ly) * LERP_SPD;
+
+      // Outer trailing ring
+      ctx.beginPath();
+      ctx.arc(lx, ly, 11, 0, Math.PI * 2);
+      ctx.strokeStyle = GOLD_RING + '0.35)';
+      ctx.lineWidth   = 1;
+      ctx.stroke();
+
+      // Inner dot at true cursor position
+      const dist = Math.hypot(mx - lx, my - ly);
+      if (dist > 3) {
+        ctx.beginPath();
+        ctx.arc(mx, my, 2.2, 0, Math.PI * 2);
+        ctx.fillStyle = GOLD_RING + '0.65)';
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  requestAnimationFrame(frame);
+}
+
+/* ============================================================
+   PAGE TRANSITION SWEEP
+   ============================================================ */
+function initPageTransition() {
+  const bar = document.getElementById('pageTransition');
+  if (!bar) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const internalPageLinks = Array.from(document.querySelectorAll('a[href]')).filter(a => {
+    const href = a.getAttribute('href');
+    return (
+      href &&
+      !href.startsWith('#') &&
+      !href.startsWith('http') &&
+      !href.startsWith('//') &&
+      !href.startsWith('mailto:') &&
+      !href.startsWith('tel:') &&
+      !a.hasAttribute('download') &&
+      !a.getAttribute('target')
+    );
+  });
+
+  internalPageLinks.forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      e.preventDefault();
+      bar.classList.remove('pt-fade');
+      bar.classList.add('pt-run');
+      setTimeout(() => {
+        bar.classList.add('pt-fade');
+        setTimeout(() => { window.location.href = href; }, 120);
+      }, 460);
+    });
+  });
+}
+
+/* ============================================================
+   CHART DRAW-IN — clip-path reveal when chart canvas is created
+   ============================================================ */
+function triggerChartDrawIn(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const wrap = canvas.closest('.panel-chart-wrap, .rr-chart-wrap');
+  if (!wrap) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    wrap.classList.add('chart-drawn');
+    return;
+  }
+  // Reset to clipped state then animate in
+  wrap.classList.remove('chart-drawn');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      setTimeout(() => wrap.classList.add('chart-drawn'), 60);
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   initAnimations();
@@ -1909,6 +2065,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initFloatContact();
   initCopyPhone();
   initCommandPalette();
+  initNavMagnet();
+  initCursorTrail();
+  initPageTransition();
 });
 
 /* ============================================================
