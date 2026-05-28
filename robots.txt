@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /_dev/
+Disallow: /docs/
 
-Sitemap: https://finnlakin.com/sitemap.xml
+Sitemap: https://finn-lakin-portfolio.netlify.app/sitemap.xml

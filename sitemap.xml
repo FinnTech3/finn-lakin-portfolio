@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://finnlakin.com/</loc>
-    <lastmod>2026-05-19</lastmod>
+    <loc>https://finn-lakin-portfolio.netlify.app/</loc>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/colophon</loc>
-    <lastmod>2026-05-19</lastmod>
+    <loc>https://finn-lakin-portfolio.netlify.app/colophon</loc>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/tearsheet</loc>
-    <lastmod>2026-05-19</lastmod>
+    <loc>https://finn-lakin-portfolio.netlify.app/tearsheet</loc>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/privacy</loc>
-    <lastmod>2026-05-19</lastmod>
+    <loc>https://finn-lakin-portfolio.netlify.app/privacy</loc>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
-    <loc>https://finnlakin.com/legal</loc>
-    <lastmod>2026-05-19</lastmod>
+    <loc>https://finn-lakin-portfolio.netlify.app/legal</loc>
+    <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
