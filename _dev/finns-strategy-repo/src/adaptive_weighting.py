@@ -8,7 +8,7 @@ For each of the eleven sub-strategies we hold:
     1. A regime-conditional **prior** weight       (theory + historical Sharpe)
     2. A regime-conditional **rolling Sharpe**     (last 30 trading days)
 
-We combine them via a Bayesian update — the prior carries 70% of the mass at
+We combine them via a Bayesian update, the prior carries 70% of the mass at
 the start of a regime and decays toward 30% as we accumulate enough in-regime
 evidence to trust the empirical estimate.
 
@@ -60,7 +60,7 @@ class WeightingConfig:
 
     `prior_mass_floor` is the asymptotic share of the prior when we have
     seen `min_obs_for_full_evidence` in-regime observations. It never falls
-    further than that — we never let the rolling estimate fully dominate.
+    further than that, we never let the rolling estimate fully dominate.
     """
 
     prior_mass_floor: float = 0.30
@@ -71,7 +71,7 @@ class WeightingConfig:
     smoothing_eps: float = 1e-9
 
 
-# Hand-set theoretical priors — informed by sub-strategy design intent.
+# Hand-set theoretical priors, informed by sub-strategy design intent.
 # Rows = strategy, cols = regime. Values are *unnormalised* Sharpe expectations.
 # Higher = strategy is more suited to that regime.
 PRIORS: Dict[str, Dict[str, float]] = {
@@ -146,7 +146,7 @@ def compute_weights(
 
     Returns
     -------
-    dict[str, float] — strategy -> weight (∑ = 1.0, all weights ≥ 0)
+    dict[str, float], strategy -> weight (∑ = 1.0, all weights ≥ 0)
     """
     if regime not in REGIMES:
         raise ValueError(f"unknown regime: {regime!r}")
@@ -168,7 +168,7 @@ def compute_weights(
 
     # ---- 3. Softmax with negative-Sharpe floor at zero --------------------
     # Strategies whose blended Sharpe is < 0 get zero weight (no shorting our
-    # own sub-strategies — they sit out the regime instead).
+    # own sub-strategies, they sit out the regime instead).
     raw = {s: max(0.0, v) for s, v in blended.items()}
     total = sum(raw.values())
 

@@ -1,5 +1,5 @@
 /* ============================================================
-   DEMO URL — Render deployment
+   DEMO URL, Render deployment
    ============================================================ */
 const DEMO_URL = 'https://finance-analysis-opml.onrender.com';
 
@@ -13,8 +13,8 @@ const PROJECTS = [
     title:       'SQL Finance Analyser',
     category:    'Finance · Data',
     year:        '2026',
-    description: 'Pulls CSV exports from any bank account into a local SQL database and lets you ask questions in plain English. DuckDB handles the analytics; Claude writes the queries and reads what the data says.',
-    tech:        ['Python', 'DuckDB', 'Claude API', 'FastAPI'],
+    description: 'Pulls CSV exports from any bank account into a local SQL database and lets you ask questions in plain English. DuckDB handles the analytics; the model writes the queries and reads what the data says.',
+    tech:        ['Python', 'DuckDB', 'LLM API', 'FastAPI'],
     status:      'live',
     statusLabel: 'Live Demo',
     repoUrl:     'https://github.com/FinnTech3/finance-analysis',
@@ -25,8 +25,8 @@ const PROJECTS = [
     title:       "Finn's Strategy",
     category:    'Quant · Research',
     year:        '2026',
-    description: 'A research framework for systematic S&P 500 E-mini futures trading. Eleven distinct sub-strategies run in parallel with an adaptive synthesis layer that dynamically reweights each based on the detected market regime. Three-month paper-traded forward test: +156% return, 86% win rate, 2.84 Sharpe — benchmarked transparently against the S&P 500.',
-    tech:        ['Python', 'R', 'Alpaca Paper API', 'Claude API'],
+    description: 'A research framework for systematic S&P 500 E-mini futures trading. Eleven distinct sub-strategies run in parallel with an adaptive synthesis layer that dynamically reweights each based on the detected market regime. Three-month paper-traded forward test: +156% return, 86% win rate, 2.84 Sharpe, benchmarked transparently against the S&P 500.',
+    tech:        ['Python', 'R', 'Alpaca Paper API', 'LLM API'],
     status:      'local',
     statusLabel: 'Research · Paper Traded',
     repoUrl:     'https://github.com/FinnTech3/finns-strategy',
@@ -47,7 +47,7 @@ function buildDemoTab() {
         <div class="panel-iframe-spinner" id="demoSpinner"></div>
         <div class="panel-iframe-fallback" id="demoFallback" style="display:none">
           <p>Demo waking up…</p>
-          <small>The server spins down when idle — first load can take up to 50 seconds. Hit Retry in a moment.</small>
+          <small>The server spins down when idle, first load can take up to 50 seconds. Hit Retry in a moment.</small>
           <button onclick="retryDemoLoad()" style="margin-top:1rem;padding:.4rem 1.2rem;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .2s" onmouseover="this.style.background='rgba(182,136,74,.12)'" onmouseout="this.style.background='transparent'">&#8635; Retry</button>
         </div>
         <iframe id="demoFrame" title="SQL Finance Analyser" allowfullscreen scrolling="no"
@@ -72,8 +72,8 @@ const PANEL_PROJECTS = {
     year:      '2026',
     plainTitle: 'SQL Finance Analyser',
     title:     'SQL Finance<br><em>Analyser</em>',
-    sub:       'Natural language questions. SQL precision. Claude-powered insight.',
-    tags:      ['Python', 'DuckDB', 'Claude API', 'FastAPI'],
+    sub:       'Natural language questions. SQL precision. LLM-powered insight.',
+    tags:      ['Python', 'DuckDB', 'LLM API', 'FastAPI'],
     goldTag:   DEMO_URL ? 'Live Demo' : 'Deploying Soon',
     repoUrl:   'https://github.com/FinnTech3/finance-analysis',
     tabs:      ['Description', 'Live Demo', 'Instructions'],
@@ -81,11 +81,11 @@ const PANEL_PROJECTS = {
     bodies: {
       desc: `
         <div class="panel-section-head">What it does</div>
-        <p class="panel-text">Import any bank statement CSV &mdash; Monzo, Starling, Revolut, or any standard export &mdash; and interrogate it in plain English. Type &ldquo;What did I spend on dining in March?&rdquo; and the tool generates precise DuckDB SQL, executes it, and returns a clean table. Ask it to analyse the results and Claude writes a narrative interpretation grounded in the actual numbers.</p>
+        <p class="panel-text">Import any bank statement CSV &mdash; Monzo, Starling, Revolut, or any standard export &mdash; and interrogate it in plain English. Type &ldquo;What did I spend on dining in March?&rdquo; and the tool generates precise DuckDB SQL, executes it, and returns a clean table. Ask it to analyse the results and the model writes a narrative interpretation grounded in the actual numbers.</p>
         <p class="panel-text">Built because spreadsheets are slow and dashboards are rigid. This lets you ask the exact question you have, not the question the tool was designed for.</p>
         <div class="panel-divider"></div>
         <div class="panel-section-sub">How it works</div>
-        <p class="panel-text">A DuckDB database sits at the centre &mdash; fast, analytical, and schema-flexible. CSV import normalises columns automatically. Claude translates your question into SQL using a structured prompt with schema context, then interprets the results with adaptive thinking enabled for deeper analysis.</p>
+        <p class="panel-text">A DuckDB database sits at the centre &mdash; fast, analytical, and schema-flexible. CSV import normalises columns automatically. the model translates your question into SQL using a structured prompt with schema context, then interprets the results with adaptive thinking enabled for deeper analysis.</p>
       `,
       get demo() { return buildDemoTab(); },
       inst: `
@@ -101,10 +101,10 @@ const PANEL_PROJECTS = {
           </div>
           <div class="panel-step">
             <span class="panel-step__num">3</span>
-            <span class="panel-step__text"><strong>Read the analysis</strong> &mdash; results come back as a clean table. Hit Analyse and Claude writes a narrative interpretation grounded in the actual numbers, flagging trends and anomalies.</span>
+            <span class="panel-step__text"><strong>Read the analysis</strong> &mdash; results come back as a clean table. Hit Analyse and the model writes a narrative interpretation grounded in the actual numbers, flagging trends and anomalies.</span>
           </div>
         </div>
-        <p class="panel-privacy">Your data is loaded into a temporary in-memory database for this session only &mdash; nothing is stored or transmitted beyond the analysis request to the Claude API.</p>
+        <p class="panel-privacy">Your data is loaded into a temporary in-memory database for this session only &mdash; nothing is stored or transmitted beyond the analysis request to the LLM.</p>
       `,
     },
   },
@@ -117,7 +117,7 @@ const PANEL_PROJECTS = {
     plainTitle: "Finn's Strategy",
     title:     "Finn's<br><em>Strategy</em>",
     sub:       'A systematic research framework for multi-regime futures trading &mdash; paper-traded, fully documented, and benchmarked transparently against the S&amp;P 500.',
-    tags:      ['Python', 'R', 'Claude API', 'Alpaca Paper API'],
+    tags:      ['Python', 'R', 'LLM API', 'Alpaca Paper API'],
     goldTag:   'Paper Trading · Research',
     repoUrl:   'https://github.com/FinnTech3/finns-strategy',
     tabs:      ['Overview', 'Research Report', 'How It Works', 'Methodology'],
@@ -129,7 +129,7 @@ const PANEL_PROJECTS = {
           <span class="panel-disclosure-text">All performance figures below are from a forward-test executed through the Alpaca Paper Trading API. No real capital is at risk. Results are presented for research transparency, not as financial advice.</span>
         </div>
         <div class="panel-section-head">The research question</div>
-        <p class="panel-text">Can a single framework trade S&amp;P 500 E-mini futures profitably across multiple, shifting market regimes &mdash; without being re-tuned for each one? This project is a structured attempt to answer that question through systematic paper-traded forward-testing. Eleven distinct sub-strategies run concurrently, each targeting a different regime: trend, mean-reversion, macro, volatility, and smart-money flow. An adaptive synthesis layer powered by the Claude API reweights each strategy in real time based on the detected market regime.</p>
+        <p class="panel-text">Can a single framework trade S&amp;P 500 E-mini futures profitably across multiple, shifting market regimes &mdash; without being re-tuned for each one? This project is a structured attempt to answer that question through systematic paper-traded forward-testing. Eleven distinct sub-strategies run concurrently, each targeting a different regime: trend, mean-reversion, macro, volatility, and smart-money flow. An adaptive synthesis layer powered by the LLM reweights each strategy in real time based on the detected market regime.</p>
 
         <div class="panel-chart-block">
           <div class="panel-chart-header">
@@ -186,7 +186,7 @@ const PANEL_PROJECTS = {
 
         <div class="rr-section">
           <div class="rr-section-title">Executive Summary</div>
-          <p class="panel-text">Finn&rsquo;s Strategy is a proprietary quantitative trading system designed to trade S&amp;P 500 E-mini futures across multiple market regimes simultaneously. Eleven distinct sub-strategies run in parallel &mdash; from ICT Smart Money to macro-driven positioning &mdash; with an adaptive synthesis layer powered by the Claude API dynamically weighting each based on the detected market regime.</p>
+          <p class="panel-text">Finn&rsquo;s Strategy is a proprietary quantitative trading system designed to trade S&amp;P 500 E-mini futures across multiple market regimes simultaneously. Eleven distinct sub-strategies run in parallel &mdash; from ICT Smart Money to macro-driven positioning &mdash; with an adaptive synthesis layer powered by the LLM dynamically weighting each based on the detected market regime.</p>
           <p class="panel-text">A three-month forward test on $10,000 starting capital returned <strong>+156%</strong> across seven trades with an 86% win rate. The largest contributor was a short entered ahead of the Iran escalation in Q1&nbsp;2026, generating <strong>+91%</strong> on that position alone. A long at the 200-day moving average using ICT OTE returned a further <strong>+36%</strong>.</p>
         </div>
 
@@ -362,7 +362,7 @@ const PANEL_PROJECTS = {
               <thead><tr><th>Component</th><th>Technology</th><th>Purpose</th></tr></thead>
               <tbody>
                 <tr><td>Signal Generation</td><td>Python 3.12 + pandas / numpy</td><td>Technical indicators, regime detection, signal scoring</td></tr>
-                <tr><td>Macro Intelligence</td><td>Claude API (claude-sonnet-4-6)</td><td>News synthesis, geopolitical risk scoring, regime labelling</td></tr>
+                <tr><td>Macro Intelligence</td><td>LLM API</td><td>News synthesis, geopolitical risk scoring, regime labelling</td></tr>
                 <tr><td>Strategy Weighting</td><td>R (FactoMineR + custom Bayesian)</td><td>Adaptive weight optimisation by regime</td></tr>
                 <tr><td>Execution</td><td>Alpaca Markets API</td><td>Paper and live order routing</td></tr>
                 <tr><td>Data</td><td>Alpaca + FRED + Yahoo Finance</td><td>Price feed, economic data, sentiment</td></tr>
@@ -377,7 +377,7 @@ const PANEL_PROJECTS = {
       how: `
         <div class="panel-disclosure-banner">
           <span class="panel-disclosure-badge">Technical Appendix</span>
-          <span class="panel-disclosure-text">Annotated architecture, the actual regime-detection contract sent to the Claude API, and the Bayesian weighting equations &mdash; in one page. Full source: <a href="https://github.com/FinnTech3/finns-strategy" target="_blank" rel="noopener noreferrer" style="color:var(--gold);text-decoration:underline">github.com/FinnTech3/finns-strategy</a>.</span>
+          <span class="panel-disclosure-text">Annotated architecture, the actual regime-detection contract sent to the LLM, and the Bayesian weighting equations &mdash; in one page. Full source: <a href="https://github.com/FinnTech3/finns-strategy" target="_blank" rel="noopener noreferrer" style="color:var(--gold);text-decoration:underline">github.com/FinnTech3/finns-strategy</a>.</span>
         </div>
 
         <div class="panel-section-head">Architecture &mdash; two-layer system</div>
@@ -391,7 +391,7 @@ const PANEL_PROJECTS = {
       ┌──────────────────────────────────────────────────────────┐
       │  Layer 2  &mdash;  Adaptive Synthesis & Regime Weighting        │
       │  (Python orchestrator · R Bayesian update ·                 │
-      │   Claude API regime labeller &mdash; prompt-cached)              │
+      │   LLM regime labeller &mdash; prompt-cached)              │
       └──────────────────────────────────────────────────────────┘
                                   │  aggregated signal s(t) ∈ [-1, 1]
                                   ▼
@@ -400,15 +400,15 @@ const PANEL_PROJECTS = {
       │  Risk overlay · vol-targeted sizing · circuit breakers       │
       └──────────────────────────────────────────────────────────┘</pre>
 
-        <div class="panel-section-sub">1. Regime detection &mdash; what Claude actually sees</div>
+        <div class="panel-section-sub">1. Regime detection &mdash; what the model actually sees</div>
         <p class="panel-text">Every four hours, the orchestrator builds a structured XML prompt from quantitative macro inputs and a short news summary. The system block (taxonomy + few-shot examples) is cached, so we are only billed for it once per cache window:</p>
-        <pre class="how-code">SYSTEM (cached, 5-min TTL — billed once per window)
+        <pre class="how-code">SYSTEM (cached, 5-min TTL, billed once per window)
   ├─ Regime taxonomy: 7 labels with definitions
   ├─ Output contract: strict JSON schema
   └─ Rules: ground every classification in indicators; VIX > 30
             + breakeven widening &rArr; lean Tail-Risk; etc.
 
-USER (per request — billed every call)
+USER (per request, billed every call)
   &lt;macro&gt;
     fed_funds_rate=5.38
     two_ten_spread_bps=-22.0
@@ -453,7 +453,7 @@ OUTPUT (strict JSON, no prose)
         <pre class="how-code">def one_tick(client, regime_state, capital):
     # --- pull inputs ---
     macro, news = client.snapshot_market_inputs()
-    regime_out  = detect_regime(macro=macro, news=news)         # Claude API
+    regime_out  = detect_regime(macro=macro, news=news)         # LLM API
     regime      = regime_out["regime"]
 
     # --- collect 11 sub-strategy signals ---
@@ -505,7 +505,7 @@ OUTPUT (strict JSON, no prose)
 ├── .env.example                 ← env-var template (no secrets committed)
 ├── src/
 │   ├── main.py                  ← orchestrator entry point
-│   ├── regime_detector.py       ← Claude-powered regime labeller (cached)
+│   ├── regime_detector.py       ← LLM-powered regime labeller (cached)
 │   ├── adaptive_weighting.py    ← Bayesian weight blending
 │   ├── position_sizer.py        ← vol-targeted sizing + risk overlay
 │   ├── alpaca_client.py         ← paper-trading execution wrapper
@@ -531,10 +531,10 @@ OUTPUT (strict JSON, no prose)
         </div>
         <div class="panel-divider"></div>
         <div class="panel-section-sub">Adaptive Weighting</div>
-        <p class="panel-text">Each strategy is scored against the current detected regime. Claude synthesises news and macro signals into a regime label; a Bayesian model in R adjusts the allocation weights in real time. Strategies that fit the detected regime receive higher capital allocation; mismatched strategies are scaled back or paused.</p>
+        <p class="panel-text">Each strategy is scored against the current detected regime. the model synthesises news and macro signals into a regime label; a Bayesian model in R adjusts the allocation weights in real time. Strategies that fit the detected regime receive higher capital allocation; mismatched strategies are scaled back or paused.</p>
         <div class="panel-divider"></div>
         <div class="panel-section-sub">Tech Stack</div>
-        <p class="panel-text">Signal generation in Python. Statistical weighting in R. Live execution via the Alpaca API. Regime detection and narrative synthesis via the Claude API. All components communicate through a lightweight event bus &mdash; each strategy runs independently and pushes signals to a central aggregator.</p>
+        <p class="panel-text">Signal generation in Python. Statistical weighting in R. Live execution via the Alpaca API. Regime detection and narrative synthesis via the LLM. All components communicate through a lightweight event bus &mdash; each strategy runs independently and pushes signals to a central aggregator.</p>
       `,
     },
   },
@@ -550,7 +550,7 @@ function renderProjects() {
   const cards = PROJECTS.map((p, idx) => {
     const techTags = p.tech.map(t => `<span class="tech-tag">${t}</span>`).join('');
 
-    // Strategy gets the featured layout — span 2 columns, surface the headline number
+    // Strategy gets the featured layout, span 2 columns, surface the headline number
     if (p.id === 'strategy') {
       return `
         <article class="project-card project-card--featured" data-animate data-project-id="${p.id}"
@@ -671,7 +671,7 @@ function renderProjects() {
 }
 
 /* ============================================================
-   PROJECT PANEL — OPEN / CLOSE
+   PROJECT PANEL, OPEN / CLOSE
    ============================================================ */
 let _panelLastFocused = null;
 let _panelScrollListener = null;
@@ -853,7 +853,7 @@ function switchPanelTab(tabId, projectId, btn) {
     positionTabIndicator(btn);
   }
 
-  // Lazy-load finance demo iframe — retry every time the tab is clicked
+  // Lazy-load finance demo iframe, retry every time the tab is clicked
   // while the iframe hasn't loaded yet (covers first visit + server-down retry)
   if (tabId === 'demo' && projectId === 'finance' && DEMO_URL) {
     const frame    = document.getElementById('demoFrame');
@@ -861,11 +861,11 @@ function switchPanelTab(tabId, projectId, btn) {
     const spinner  = document.getElementById('demoSpinner');
     const note     = document.getElementById('demoNote');
     if (frame && (!frame.src || frame.src === 'about:blank')) {
-      // Reset UI for each attempt — clears any previous "Server offline" state
+      // Reset UI for each attempt, clears any previous "Server offline" state
       if (fallback) fallback.style.display = 'none';
       if (spinner) spinner.style.display = 'none'; // skeleton replaces spinner
       injectDemoSkeleton();
-      announceDemo('Finance Analyser demo loading — this may take up to 50 seconds.');
+      announceDemo('Finance Analyser demo loading, this may take up to 50 seconds.');
       if (note) {
         note.style.opacity = '';
         const dot = note.querySelector('.panel-demo-dot');
@@ -909,7 +909,7 @@ function switchPanelTab(tabId, projectId, btn) {
 }
 
 /* ============================================================
-   DEMO RETRY — called by the "Retry" button in the offline fallback
+   DEMO RETRY, called by the "Retry" button in the offline fallback
    ============================================================ */
 function retryDemoLoad() {
   const frame    = document.getElementById('demoFrame');
@@ -1011,7 +1011,7 @@ function initAnimations() {
 }
 
 /* ============================================================
-   NAV — scroll behaviour
+   NAV, scroll behaviour
    ============================================================ */
 function initNav() {
   const nav = document.getElementById('nav');
@@ -1049,7 +1049,7 @@ function initMobileMenu() {
   links.forEach(l => l.addEventListener('click', () => { if (open) toggle(); }));
 }
 
-/* initActiveLinks removed — initActiveNav (below) covers this with CSS classes */
+/* initActiveLinks removed, initActiveNav (below) covers this with CSS classes */
 
 /* ============================================================
    SMOOTH ANCHOR SCROLL
@@ -1115,7 +1115,7 @@ function initCvModal() {
 }
 
 /* ============================================================
-   PANEL CONTROLS — close button + Escape + keyboard
+   PANEL CONTROLS, close button + Escape + keyboard
    ============================================================ */
 function initPanelControls() {
   document.getElementById('panelClose').addEventListener('click', closeProject);
@@ -1309,7 +1309,7 @@ function initStrategyChart() {
 }
 
 /* ============================================================
-   REPORT CHARTS — bar chart + animated strategy bars
+   REPORT CHARTS, bar chart + animated strategy bars
    ============================================================ */
 function initReportCharts() {
   // Animate strategy contribution bars
@@ -1407,7 +1407,7 @@ function initReportCharts() {
 }
 
 /* ============================================================
-   HERO — mouse parallax on glow
+   HERO, mouse parallax on glow
    ============================================================ */
 function initHeroParallax() {
   const glow = document.querySelector('.hero__glow');
@@ -1428,7 +1428,7 @@ function initHeroParallax() {
 }
 
 /* ============================================================
-   FOOTER — update copyright year dynamically
+   FOOTER, update copyright year dynamically
    ============================================================ */
 function initFooter() {
   const copy = document.querySelector('.footer__copy');
@@ -1436,7 +1436,7 @@ function initFooter() {
 }
 
 /* ============================================================
-   TIMELINE — Education / Work Experience / Combined view toggle
+   TIMELINE, Education / Work Experience / Combined view toggle
    ============================================================ */
 function initTimeline() {
   const panel = document.getElementById('timelinePanel');
@@ -1475,7 +1475,7 @@ function initTimeline() {
 }
 
 /* ============================================================
-   DEMO IFRAME — auto-height via postMessage (no sub-scroll)
+   DEMO IFRAME, auto-height via postMessage (no sub-scroll)
    ============================================================ */
 let _iframeHeightRaf = null;
 let _lastIframeH = 0;
@@ -1486,7 +1486,7 @@ window.addEventListener('message', e => {
   // Cap at 2× viewport to prevent runaway growth loop where
   // resizing the wrapper triggers another ResizeObserver report
   const cap = Math.min(h, Math.max(900, window.innerHeight * 1.8));
-  // Ignore changes smaller than 8px — stops the resize → report → resize cycle
+  // Ignore changes smaller than 8px, stops the resize → report → resize cycle
   if (Math.abs(cap - _lastIframeH) < 8) return;
   _lastIframeH = cap;
   if (_iframeHeightRaf) cancelAnimationFrame(_iframeHeightRaf);
@@ -1573,7 +1573,7 @@ function initHeroScramble() {
 }
 
 /* ============================================================
-   3D CARD TILT — project cards
+   3D CARD TILT, project cards
    ============================================================ */
 function initCardTilt() {
   const MAX_TILT = 8; // degrees
@@ -1594,7 +1594,7 @@ function initCardTilt() {
 }
 
 /* ============================================================
-   BLOOMBERG TICKER — duplicate content for seamless loop
+   BLOOMBERG TICKER, duplicate content for seamless loop
    ============================================================ */
 function initTicker() {
   const track = document.getElementById('tickerTrack');
@@ -1831,7 +1831,7 @@ function initCopyEmail() {
 }
 
 /* ============================================================
-   DEMO SKELETON — replaces plain spinner while Render wakes
+   DEMO SKELETON, replaces plain spinner while Render wakes
    ============================================================ */
 function injectDemoSkeleton() {
   const wrap = document.getElementById('demoWrap');
@@ -1865,7 +1865,7 @@ function announceDemo(msg) {
 }
 
 /* ============================================================
-   PANEL KEYBOARD NAVIGATION — j/k to navigate projects
+   PANEL KEYBOARD NAVIGATION, j/k to navigate projects
    ============================================================ */
 function initPanelKeyboard() {
   document.addEventListener('keydown', e => {
@@ -1883,7 +1883,7 @@ function initPanelKeyboard() {
 }
 
 /* ============================================================
-   MOBILE IFRAME HEIGHT — refresh on orientation change
+   MOBILE IFRAME HEIGHT, refresh on orientation change
    ============================================================ */
 function initOrientationRefresh() {
   window.addEventListener('orientationchange', () => {
@@ -2032,7 +2032,7 @@ function initPageTransition() {
 }
 
 /* ============================================================
-   CHART DRAW-IN — clip-path reveal when chart canvas is created
+   CHART DRAW-IN, clip-path reveal when chart canvas is created
    ============================================================ */
 function triggerChartDrawIn(canvasId) {
   const canvas = document.getElementById(canvasId);
@@ -2082,7 +2082,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ============================================================
-   SCROLL PROGRESS — gold rule at top fills as you scroll
+   SCROLL PROGRESS, gold rule at top fills as you scroll
    ============================================================ */
 function initScrollProgress() {
   const bar = document.getElementById('scrollProgress');
@@ -2098,7 +2098,7 @@ function initScrollProgress() {
 }
 
 /* ============================================================
-   ACTIVE NAV — IntersectionObserver marks current section
+   ACTIVE NAV, IntersectionObserver marks current section
    ============================================================ */
 function initActiveNav() {
   const links = document.querySelectorAll('.nav__links a[href^="#"]');
@@ -2125,7 +2125,7 @@ function initActiveNav() {
 }
 
 /* ============================================================
-   PANEL ENHANCEMENTS — copy-link + next-project footer
+   PANEL ENHANCEMENTS, copy-link + next-project footer
    These hook into the existing openProject lifecycle.
    ============================================================ */
 function initPanelEnhancements() {

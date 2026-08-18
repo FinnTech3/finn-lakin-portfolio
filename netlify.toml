@@ -1,6 +1,6 @@
 # ============================================================
-#  Netlify config — Finn Lakin Portfolio
-#  Static site — no build step needed.
+#  Netlify config, Finn Lakin Portfolio
+#  Static site, no build step needed.
 # ============================================================
 
 [build]
@@ -13,7 +13,7 @@
   to   = "/assets/finn-lakin-cv.pdf"
   status = 301
 
-# Clean URLs — strip .html extension
+# Clean URLs, strip .html extension
 [[redirects]]
   from = "/tearsheet"
   to   = "/tearsheet.html"
@@ -63,7 +63,7 @@
   status = 404
   force  = true
 
-# 404 fallback — branded page (real 404 status)
+# 404 fallback, branded page (real 404 status)
 [[redirects]]
   from   = "/*"
   to     = "/404.html"

@@ -54,14 +54,15 @@ venv/
 env/
 
 # Internal / development artefacts that should never be public
-.superpowers/
-for-claude-design.html
-claude-design-brief.html
-docs/superpowers/
+_scratch/
+_internal/
+*-design-draft.html
+*-design-brief.html
+docs/_drafts/
 assets/_generate_*.py
 _dev/v1-backup/
-_dev/claude-design-brief.html
-_dev/for-claude-design.html
+_dev/*-draft.html
+_dev/*-brief.html
 
 # Python build cache
 *.egg-info/

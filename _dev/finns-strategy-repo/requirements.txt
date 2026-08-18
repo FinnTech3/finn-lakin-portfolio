@@ -1,4 +1,4 @@
-# Finn's Strategy — Python runtime dependencies
+# Finn's Strategy, Python runtime dependencies
 anthropic>=0.40.0
 alpaca-py>=0.30.0
 pandas>=2.2.0

@@ -9,7 +9,7 @@ plus a sentiment summary of the recent news cycle, and asks the Claude API
 to classify the current S&P 500 regime into one of seven labels with a
 calibrated confidence score.
 
-Prompt caching is enabled on the system block — the schema, taxonomy and
+Prompt caching is enabled on the system block, the schema, taxonomy and
 few-shot examples (~6kt) only get billed once per cache window.
 
 Author : Finn Lakin
@@ -54,7 +54,7 @@ class NewsSummary:
     """Top-of-funnel news snapshot."""
     headlines: List[str]          # 10 most recent Reuters / Bloomberg headlines
     sentiment_score: float        # -1.0 .. +1.0 from upstream pipeline
-    geo_risk_score: float         # Caldara–Iacoviello GPR, normalised
+    geo_risk_score: float         # Caldara-Iacoviello GPR, normalised
     earnings_density_pct: float   # % of SPX cap reporting this week
     fomc_within_5d: bool
     opex_week: bool
@@ -117,7 +117,7 @@ headlines:
 def detect_regime(macro: MacroState, news: NewsSummary) -> dict:
     """Classify the current regime via the Claude API.
 
-    Uses prompt caching on the system block — the schema + taxonomy + few-shot
+    Uses prompt caching on the system block, the schema + taxonomy + few-shot
     examples only get billed once per 5-minute cache window.
     """
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])

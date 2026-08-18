@@ -13,7 +13,7 @@ A one-page technical primer on how Finn's Strategy generates a position.
 | $\text{ATR}_{20}(t)$ | 20-period Average True Range at $t$ |
 | $w_i^{(R)}$ | weight assigned to sub-strategy $i$ under regime $R$ |
 | $s_i(t) \in [-1, 1]$ | signed signal from sub-strategy $i$ at $t$ |
-| $\hat{R}_t$ | predicted regime at $t$ (Claude-emitted label) |
+| $\hat{R}_t$ | predicted regime at $t$ (model-emitted label) |
 | $c_t$ | predicted regime confidence at $t$, $\in [0, 1]$ |
 | $\sigma_R(i)$ | rolling in-regime Sharpe of strategy $i$ |
 | $\sigma_R^{\text{prior}}(i)$ | theoretical prior Sharpe of strategy $i$ in regime $R$ |
@@ -22,13 +22,13 @@ A one-page technical primer on how Finn's Strategy generates a position.
 
 ## 2. Regime classification
 
-A regime label is recomputed every $\Delta t = 4$ hours via the Claude API.
+A regime label is recomputed every $\Delta t = 4$ hours via the LLM.
 The model is prompted with a 12-line macro state vector $M_t$, a 10-headline
 news summary $N_t$, and a small set of overlays (FOMC proximity, earnings
 density, OPEX week). The contract:
 
 $$
-\big(\hat{R}_t, c_t\big) \;=\; \texttt{Claude}\big(\text{system}_\text{cached},\; M_t,\; N_t\big)
+\big(\hat{R}_t, c_t\big) \;=\; \texttt{LLM}\big(\text{system}_\text{cached},\; M_t,\; N_t\big)
 $$
 
 $\hat{R}_t \in \{\text{Trending-Up}, \text{Trending-Down}, \text{Mean-Reverting}, \text{High-Vol}, \text{Range-Bound}, \text{Event-Driven}, \text{Tail-Risk}\}$.
@@ -56,7 +56,7 @@ $$
 \lambda(n_R) \;=\; 0.70 \;-\; \min\!\Big(1,\; \tfrac{n_R}{60}\Big) \cdot 0.40
 $$
 
-— so the prior gets 70% mass when no evidence has accumulated, falling to
+- so the prior gets 70% mass when no evidence has accumulated, falling to
 30% once we've seen 60 in-regime observations. This stops the weights from
 chasing noise early and stops them from ignoring evidence late.
 
@@ -81,7 +81,7 @@ $$
 
 ---
 
-## 5. Position sizing — risk-first
+## 5. Position sizing, risk-first
 
 We size by volatility-targeting, not by signal strength:
 
@@ -91,9 +91,9 @@ $$
 
 where:
 
-* $\rho = 0.02$ — max single-trade risk (2% of NAV)
-* $k_{\text{ES}} = 50$ — dollar value per ES point
-* $\kappa(t)$ — correlation adjustment vs already-open positions
+* $\rho = 0.02$, max single-trade risk (2% of NAV)
+* $k_{\text{ES}} = 50$, dollar value per ES point
+* $\kappa(t)$, correlation adjustment vs already-open positions
 
 Overlays:
 
@@ -110,11 +110,11 @@ Orders submitted via the [Alpaca Paper Trading API](https://alpaca.markets/docs/
 
 ---
 
-## 7. Inputs to regime detection — full list
+## 7. Inputs to regime detection, full list
 
 | Block | Inputs |
 |---|---|
-| Macro state | Fed funds rate · 2s10s spread · DXY 5-day return · VIX · 10y real yield · US economic surprise index · HYG–LQD spread · 10y breakeven |
+| Macro state | Fed funds rate · 2s10s spread · DXY 5-day return · VIX · 10y real yield · US economic surprise index · HYG-LQD spread · 10y breakeven |
 | News summary | 10 headlines · sentiment score · geopolitical risk (GPR daily) · earnings density · FOMC proximity · OPEX flag |
 | Cross-asset overlays | gold/copper · DXY · credit spreads |
 
@@ -122,7 +122,7 @@ Orders submitted via the [Alpaca Paper Trading API](https://alpaca.markets/docs/
 
 ## 8. References
 
-* Caldara, D., & Iacoviello, M. (2022). *Measuring Geopolitical Risk.* American Economic Review, 112(4), 1194–1225. ([Project page](https://www.matteoiacoviello.com/gpr.htm))
-* Asness, C. S., Moskowitz, T. J., & Pedersen, L. H. (2013). *Value and Momentum Everywhere.* Journal of Finance, 68(3), 929–985.
+* Caldara, D., & Iacoviello, M. (2022). *Measuring Geopolitical Risk.* American Economic Review, 112(4), 1194 to 1225. ([Project page](https://www.matteoiacoviello.com/gpr.htm))
+* Asness, C. S., Moskowitz, T. J., & Pedersen, L. H. (2013). *Value and Momentum Everywhere.* Journal of Finance, 68(3), 929 to 985.
 * Pedersen, L. H. (2015). *Efficiently Inefficient.* Princeton University Press.
 * Anthropic. (2025). *Prompt caching documentation.* [docs.anthropic.com](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching)

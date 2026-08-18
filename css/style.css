@@ -1,5 +1,5 @@
 /* ============================================================
-   TOKENS — default = Brass on Black (warm dark)
+   TOKENS, default = Brass on Black (warm dark)
    Alt palette: FT Pink via [data-palette="ft"]
    ============================================================ */
 :root {
@@ -9,7 +9,7 @@
   --border:      rgba(240,234,214,0.10);
   --border-2:    rgba(240,234,214,0.20);
 
-  /* Text — parchment cream, brighter than original cool-grey to fix
+  /* Text, parchment cream, brighter than original cool-grey to fix
      "blink to read". Reads warm against the off-black ground. */
   --text:        #F0EAD6;
   --text-2:      #C2B89F;
@@ -21,7 +21,7 @@
   --gold-dim:    rgba(182,136,74,0.12);
   --gold-glow:   rgba(182,136,74,0.20);
 
-  /* Functional palette — promoted from inline values across style.css */
+  /* Functional palette, promoted from inline values across style.css */
   --blue:        #7799C0;
   --blue-dim:    rgba(119,153,192,0.10);
   --green:       #4caf82;
@@ -41,7 +41,7 @@
 }
 
 /* ============================================================
-   PALETTE — FT Pink (light editorial alternate)
+   PALETTE, FT Pink (light editorial alternate)
    ============================================================ */
 [data-palette="ft"] {
   --bg:          #FFF1E5;
@@ -68,10 +68,10 @@
 }
 
 /* ============================================================
-   PALETTE — per-palette tweaks that can't cascade from tokens alone
+   PALETTE, per-palette tweaks that can't cascade from tokens alone
    ============================================================ */
 
-/* Smooth palette swap — scoped to the moment of switching only.
+/* Smooth palette swap, scoped to the moment of switching only.
    A permanent `body *` transition taxed every hover/interaction with a 300ms
    colour lag and forced needless style recalcs. Now the cross-fade is applied
    only while the .palette-swapping class is present (~480ms during a toggle),
@@ -85,12 +85,12 @@ html.palette-swapping body * {
               fill 0.42s var(--ease) !important;
 }
 
-/* Brass on Black (default) — corrections */
+/* Brass on Black (default), corrections */
 .hero__glow {
   background: radial-gradient(ellipse, rgba(182,136,74,0.07) 0%, transparent 65%);
 }
 
-/* FT — light theme corrections */
+/* FT, light theme corrections */
 [data-palette="ft"] .hero__glow {
   background: radial-gradient(ellipse, rgba(153,15,61,0.06) 0%, transparent 65%);
 }
@@ -149,7 +149,7 @@ html {
 }
 
 /* ============================================================
-   SCROLL PROGRESS — 1px gold rule at top, fills as you scroll
+   SCROLL PROGRESS, 1px gold rule at top, fills as you scroll
    ============================================================ */
 .scroll-progress {
   position: fixed;
@@ -163,7 +163,7 @@ html {
 }
 
 /* ============================================================
-   FOCUS — single global rule. WCAG 2.4.7.
+   FOCUS, single global rule. WCAG 2.4.7.
    Shows only on keyboard focus, never on click.
    ============================================================ */
 *:focus { outline: none; }
@@ -423,12 +423,12 @@ ul { list-style: none; }
   font-weight: 500;
 }
 .hero__name-stop {
-  /* trailing full-stop in gold — terminal punctuation, FT byline-style */
+  /* trailing full-stop in gold, terminal punctuation, FT byline-style */
   color: var(--gold);
   font-style: italic;
 }
 
-/* New: hero lead — the headline result, larger than body */
+/* New: hero lead, the headline result, larger than body */
 .hero__lead {
   font-family: var(--font-hero);
   font-style: italic;
@@ -625,7 +625,7 @@ ul { list-style: none; }
   background: var(--border);
 }
 
-/* Featured stat — span both columns, larger numbers */
+/* Featured stat, span both columns, larger numbers */
 .stat-card--featured {
   grid-column: 1 / -1;
   background: linear-gradient(180deg, var(--surface) 0%, rgba(182,136,74,0.04) 100%);
@@ -745,7 +745,7 @@ ul { list-style: none; }
   background: var(--border);
 }
 
-/* Featured project card — Strategy spans 2 columns + taller, gold rule on top */
+/* Featured project card, Strategy spans 2 columns + taller, gold rule on top */
 .project-card--featured {
   grid-column: 1 / -1;
   background: linear-gradient(180deg, var(--surface) 0%, rgba(182,136,74,0.04) 100%);
@@ -1345,7 +1345,7 @@ ul { list-style: none; }
 }
 .timeline-entry__bullets li:last-child { margin-bottom: 0; }
 .timeline-entry__bullets li::before {
-  content: '—';
+  content: '-';
   position: absolute;
   left: 0;
   color: var(--gold);
@@ -1498,7 +1498,7 @@ ul { list-style: none; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 0.85rem 1.6rem;
-  min-height: 44px;            /* WCAG / Fitts — comfortable touch target */
+  min-height: 44px;            /* WCAG / Fitts, comfortable touch target */
   border-radius: 2px;
   cursor: pointer;             /* affordance on <button> elements too */
   transition: background-color 0.22s var(--ease), border-color 0.22s var(--ease),
@@ -1507,7 +1507,7 @@ ul { list-style: none; }
   white-space: nowrap;
 }
 
-/* PRIMARY — the single most important action. Filled so it is unmistakably the
+/* PRIMARY, the single most important action. Filled so it is unmistakably the
    visual anchor among the secondary ghost buttons (Von Restorff). Text uses the
    page background colour, which keeps AA contrast in BOTH palettes
    (near-black on brass; cream on burgundy). */
@@ -1536,7 +1536,7 @@ ul { list-style: none; }
   transform: translateY(-1px);
 }
 
-/* Tactile press feedback on every button — placed last so it wins over the
+/* Tactile press feedback on every button, placed last so it wins over the
    hover lift when the element is simultaneously hovered and active. */
 .btn:active { transform: translateY(1px); box-shadow: none; }
 
@@ -1753,7 +1753,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   ANIMATION SUITE — 10 animations
+   ANIMATION SUITE, 10 animations
    ============================================================ */
 
 /* ── 1. NAV UNDERLINE MAGNET ───────────────────────────────── */
@@ -1934,12 +1934,12 @@ ul { list-style: none; }
   animation: fadeUp 0.4s var(--ease) 0.47s both;
 }
 
-/* ── 9. SECTION REVEAL UPGRADE — testimonial cards already stagger
+/* ── 9. SECTION REVEAL UPGRADE, testimonial cards already stagger
         via data-delay-animate="0.05" and data-delay-animate="0.15"
         so no additional CSS needed here. The timeline entries and
         skill tags are the new additions. ───────────────────────── */
 
-/* ── 10. PREFERS-REDUCED-MOTION — kill all custom animations ─ */
+/* ── 10. PREFERS-REDUCED-MOTION, kill all custom animations ─ */
 @media (prefers-reduced-motion: reduce) {
   .hero__cursor                         { animation: none; opacity: 1; }
   .skills__group.is-visible .skill-tag  { animation: none; opacity: 1; transform: none; }
@@ -2282,7 +2282,7 @@ ul { list-style: none; }
   background: var(--gold-dim);
 }
 
-/* ---- Panel hero CTA — "View source on GitHub" ---- */
+/* ---- Panel hero CTA, "View source on GitHub" ---- */
 .panel-hero__cta {
   display: flex;
   align-items: center;
@@ -2820,7 +2820,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   RESEARCH REPORT — inline panel tab
+   RESEARCH REPORT, inline panel tab
    ============================================================ */
 .rr-kpi-strip {
   display: grid;
@@ -3001,7 +3001,7 @@ ul { list-style: none; }
 
 
 /* ============================================================
-   PRINT — clean A4 render on Cmd+P
+   PRINT, clean A4 render on Cmd+P
    ============================================================ */
 @media print {
   :root {
@@ -3045,7 +3045,7 @@ ul { list-style: none; }
 
 
 /* ============================================================
-   PANEL — copy-link button (in topbar)
+   PANEL, copy-link button (in topbar)
    ============================================================ */
 .project-panel__copy {
   display: inline-flex;
@@ -3083,7 +3083,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   PANEL — next-project footer
+   PANEL, next-project footer
    ============================================================ */
 .panel-next-project {
   margin-top: 4rem;
@@ -3251,7 +3251,7 @@ ul { list-style: none; }
 @media (max-width: 600px) { .back-to-top { bottom: 1.2rem; right: 1.2rem; } }
 
 /* ============================================================
-   COPY EMAIL BUTTON — contact section
+   COPY EMAIL BUTTON, contact section
    ============================================================ */
 .btn--copy-email { min-width: 0; }
 .btn--copy-email.copied {
@@ -3288,7 +3288,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   PANEL TABS — mobile scroll snap
+   PANEL TABS, mobile scroll snap
    ============================================================ */
 .panel-tabs-outer {
   -webkit-overflow-scrolling: touch;
@@ -3626,7 +3626,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   3D CARD TILT — project cards
+   3D CARD TILT, project cards
    ============================================================ */
 .project-card {
   transform-style: preserve-3d;
@@ -3639,7 +3639,7 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   HERO SCRAMBLE — keeps layout stable during animation
+   HERO SCRAMBLE, keeps layout stable during animation
    ============================================================ */
 .hero__name-line[data-scramble] {
   display: inline-block;

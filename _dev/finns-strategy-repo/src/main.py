@@ -1,5 +1,5 @@
 """
-main.py — Finn's Strategy orchestrator.
+main.py, Finn's Strategy orchestrator.
 
 Single entry point that wires the framework together for a paper-trading run:
 
@@ -95,7 +95,7 @@ def one_tick(client: AlpacaPaperClient, regime_state: dict, capital: float) -> N
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Finn's Strategy — paper-trading orchestrator")
+    p = argparse.ArgumentParser(description="Finn's Strategy, paper-trading orchestrator")
     p.add_argument("--mode", choices=["paper"], required=True,
                    help="only 'paper' is supported; this framework never places real orders")
     p.add_argument("--capital", type=float, default=10_000.0)
@@ -113,7 +113,7 @@ def main() -> None:
     while True:
         try:
             one_tick(client, regime_state, args.capital)
-        except Exception:  # noqa: BLE001 — top-level loop must keep going
+        except Exception:  # noqa: BLE001, top-level loop must keep going
             log.exception("tick failed; sleeping then retrying")
         time.sleep(args.tick_seconds)
 
