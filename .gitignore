@@ -23,6 +23,7 @@ $RECYCLE.BIN/
 # Editor / IDE
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
 *.bak
